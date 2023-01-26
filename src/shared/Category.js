@@ -8,7 +8,7 @@ const Category = () => {
   // 로그인 페이지에서만 카테고리 보이지 않기
   const locationNow = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
 
   return (
@@ -51,28 +51,6 @@ const Category = () => {
           <CategoryBox>
             <CategoryEachBox>
               <CategoryEachLink onClick={() => setModalIsOpen(true)}>
-                {/*TODO: 여기다 모달 달아야 함  */}{" "}
-                <ReactModal
-                  style={{
-                    content: {
-                      position: "fixed",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      border: "5px solid #ccc",
-                      width: "500px",
-                      marginTop: "250px",
-                      height: "300px",
-                      borderRadius: "20px",
-                      padding: "20px",
-                      display: "flex",
-                    },
-                  }}
-                  isOpen={modalIsOpen}
-                  ariaHideApp={false}
-                  onRequestClose={() => setModalIsOpen(false)}
-                >
-                  <button onClick={() => setModalIsOpen(false)}>닫기</button>
-                </ReactModal>
                 <CategoryInLink>
                   <div>
                     <CategoryInDiv>
@@ -201,6 +179,25 @@ const Category = () => {
           </CategoryBox>
         </CategoryOutBox>
       </CategoryWrapper>
+      <ReactModal
+        style={{
+          content: {
+            position: "fixed",
+            marginLeft: "auto",
+            marginRight: "auto",
+            border: "5px solid #ccc",
+            width: "500px",
+            marginTop: "250px",
+            height: "300px",
+            borderRadius: "20px",
+            padding: "20px",
+            display: "flex",
+          },
+        }}
+        isOpen={modalIsOpen}
+        ariaHideApp={false}
+        onRequestClose={() => setModalIsOpen(false)}
+      ></ReactModal>
     </>
   );
 };

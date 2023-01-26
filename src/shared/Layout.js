@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 function Layout({ children }) {
   const locationNow = useLocation();
+  // layout 로그인 페이지에만 다르게 하기
   if (locationNow.pathname === "/") return <div>{children}</div>;
   return (
     <div>
       <LayoutStyles>
-        <LayoutStyleInside>{children} </LayoutStyleInside>
+        <LayoutStyleInside> {children}</LayoutStyleInside>
       </LayoutStyles>
     </div>
   );
@@ -26,9 +27,9 @@ const LayoutStyles = styled.div`
   display: flex;
   position: relative;
   outline: 1px solid #036cdb !important;
-  min-height: calc(100vh - 0px);
-  min-height: inherit;
+  min-height: 100vh;
   flex-direction: column;
+  min-width: 100vw;
   overflow-y: scroll !important;
 `;
 const LayoutStyleInside = styled.div`
@@ -41,7 +42,7 @@ const LayoutStyleInside = styled.div`
   border-bottom-right-radius: 0;
   flex-shrink: 0;
   position: static;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
   flex-direction: row;
   overflow-x: visible;

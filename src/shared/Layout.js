@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 function Layout({ children }) {
   const locationNow = useLocation();
-  if (locationNow.pathname === "/") return null;
+  if (locationNow.pathname === "/") return <div>{children}</div>;
   return (
     <div>
       <LayoutStyles>

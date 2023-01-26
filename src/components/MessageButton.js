@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const MessageButton = () => {
-  return (
-    <div>MessageButton</div>
-  )
-}
+  return <div>MessageButton</div>;
+};
 
-export default MessageButton
+export default MessageButton;

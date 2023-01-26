@@ -197,7 +197,9 @@ const Category = () => {
         isOpen={modalIsOpen}
         ariaHideApp={false}
         onRequestClose={() => setModalIsOpen(false)}
-      ></ReactModal>
+      >
+        {/* TODO: 여기다가 add넣어주세요 */}
+      </ReactModal>
     </>
   );
 };

@@ -6,13 +6,9 @@ const Main = () => {
   return (
     <>
       <MainLayoutWrapper>
-        {" "}
         <MainLayoutContainer>
-          {" "}
           <MainLayoutSection>
-            {" "}
             <MainDetailWrapper>
-              {" "}
               <MainDetailContainer>
                 {/* TODO: 여기다 맵 돌릴 것 */}
                 <MainCard />
@@ -24,8 +20,8 @@ const Main = () => {
                 <MainCard /> <MainCard />
                 <MainCard />
                 <MainCard />
-              </MainDetailContainer>{" "}
-            </MainDetailWrapper>{" "}
+              </MainDetailContainer>
+            </MainDetailWrapper>
           </MainLayoutSection>
         </MainLayoutContainer>
       </MainLayoutWrapper>

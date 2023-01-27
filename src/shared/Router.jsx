@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login";
+
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
 import Category from "./Category";
 import Layout from "./Layout";
+
 const Router = () => {
   //   const checkLogin = sessionStorage.getItem("memberinfo");
 
@@ -22,6 +24,7 @@ const Router = () => {
           <Route path="/Edit" element={<EditProfile />} />
         </Routes>
       </Layout>
+
     </BrowserRouter>
   );
 };

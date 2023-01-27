@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Like = () => {
-  return (
-    <div>Like</div>
-  )
-}
+  return <div>Like</div>;
+};
 
-export default Like
+export default Like;

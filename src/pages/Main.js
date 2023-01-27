@@ -1,24 +1,31 @@
 import React from "react";
 import styled from "styled-components";
+import MainCard from "../components/MainCard";
 
 const Main = () => {
   return (
     <>
       <MainLayoutWrapper>
+        {" "}
         <MainLayoutContainer>
+          {" "}
           <MainLayoutSection>
+            {" "}
             <MainDetailWrapper>
+              {" "}
               <MainDetailContainer>
-                안녕하세요
-                <div>안녕하세요1</div>
-                <div>안녕하세요</div>
-                <div>안녕하세요</div>
-                <div>안녕하세요</div>
-                <div>안녕하세요</div>
-                <div>안녕하세요</div>
-                <div>안녕하세요7</div>
-              </MainDetailContainer>
-            </MainDetailWrapper>
+                {/* TODO: 여기다 맵 돌릴 것 */}
+                <MainCard />
+                <MainCard />
+                <MainCard />
+                <MainCard />
+                <MainCard />
+                <MainCard />
+                <MainCard /> <MainCard />
+                <MainCard />
+                <MainCard />
+              </MainDetailContainer>{" "}
+            </MainDetailWrapper>{" "}
           </MainLayoutSection>
         </MainLayoutContainer>
       </MainLayoutWrapper>
@@ -29,13 +36,17 @@ const Main = () => {
 export default Main;
 
 const MainLayoutWrapper = styled.div`
-  margin-left: auto;
-  display: block;
-  width: calc(100% -0px);
+  /* z-index: 1; // 먼저 보이게 하는거 */
+  /* height: 100vh; */
+  /* background-color: red; */
+  /* margin-left: auto; */
+  /* display: block; */
+  /* width: 100% -0px; */
 `;
 
 const MainLayoutContainer = styled.div`
   min-height: 100vh;
+  min-width: 80vw;
   flex-direction: column;
   display: flex;
   justify-content: flex-start;
@@ -43,11 +54,10 @@ const MainLayoutContainer = styled.div`
   flex-grow: 1;
 `;
 
-const MainLayoutSection = styled.section`
+const MainLayoutSection = styled.div`
   padding-top: 0;
   display: flex;
-  flex-flow: row nowrap;
-  max-width: calc(470px+ 64px + 319px);
+  flex-flow: row nowrap; //row 와 nowrp을 합침
   align-items: stretch;
   border: 0;
   box-sizing: border-box;
@@ -59,25 +69,34 @@ const MainLayoutSection = styled.section`
   position: relative;
   vertical-align: baseline;
   width: 100%;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  flex-flow: row nowrap;
+  /* flex-shrink: 1; */
 `;
 
 const MainDetailWrapper = styled.div`
   background: rgb(255, 255, 255);
   margin-top: 10px;
-  transform: translateY(-56px);
-  flex-shrink: 0;
+  transform: translateY(0px);
+  flex-shrink: 1;
   transition: transform 0.3s ease-out 0.2s;
   float: left;
   margin-right: 64px;
   max-width: 470px;
   width: 100%;
-  display: block;
+  display: flex;
   font: inherit;
   font-size: 100%;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  /* overflow-x: none; */
 `;
 
 const MainDetailContainer = styled.div`
-  margin-top: calc(4px * 4);
+  margin-top: 16px;
   justify-content: flex-start;
   flex-direction: column;
   align-items: stretch;

@@ -11,8 +11,8 @@ const Router = () => {
 
   return (
     <BrowserRouter>
+      <Category />
       <Layout>
-        <Category />
         <Routes>
           <Route path="/" element={<Login />} />
 

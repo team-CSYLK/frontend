@@ -17,7 +17,6 @@ const Main = () => {
                 <MainCard />
                 <MainCard />
                 <MainCard />
-                <MainCard /> <MainCard />
                 <MainCard />
                 <MainCard />
               </MainDetailContainer>

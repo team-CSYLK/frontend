@@ -28,28 +28,29 @@ const LayoutStyles = styled.div`
   min-height: 100vh;
   flex-direction: column;
   min-width: 100vw;
+  /* justify-content: center; */
   /* margin-right: 2000000px; */
   /* overflow-y: scroll !important; */
 `;
-const LayoutStyleInside = styled.div`
-  height: 100%;
-  /* overflow-y: scroll; */
-  border-bottom-left-radius: 0;
-  /* background-color: rgb(250, 250, 250); */
-  background: rgb(255, 255, 255);
-  /* border: 1px solid red; */
-  box-sizing: border-box;
-  display: flex;
-  border-bottom-right-radius: 0;
-  flex-shrink: 0;
-  position: static;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-direction: row;
-  overflow-x: none; // 넘치는 거 그냥 보이기
-  align-self: auto;
-  flex-grow: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  /* position: fixed; */
-`;
+// const LayoutStyleInside = styled.div`
+//   height: 100%;
+//   /* overflow-y: scroll; */
+//   border-bottom-left-radius: 0;
+//   /* background-color: rgb(250, 250, 250); */
+//   background: rgb(255, 255, 255);
+//   /* border: 1px solid red; */
+//   box-sizing: border-box;
+//   display: flex;
+//   border-bottom-right-radius: 0;
+//   flex-shrink: 0;
+//   position: static;
+//   justify-content: flex-start;
+//   align-items: stretch;
+//   flex-direction: row;
+//   overflow-x: none; // 넘치는 거 그냥 보이기
+//   align-self: auto;
+//   flex-grow: 0;
+//   border-top-left-radius: 0;
+//   border-top-right-radius: 0;
+//   /* position: fixed; */
+// `;

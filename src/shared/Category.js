@@ -156,7 +156,7 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Main" role="link" tabindex="0">
+              <CategoryEachLink href="/Profile" role="link" tabindex="0">
                 {/*TODO: 여기다 href 주소 수정.. 닉네임을 로컬로 받아야함 */}
                 <CategoryInLink>
                   <div>

@@ -6,13 +6,9 @@ const Main = () => {
   return (
     <>
       <MainLayoutWrapper>
-        {" "}
         <MainLayoutContainer>
-          {" "}
           <MainLayoutSection>
-            {" "}
             <MainDetailWrapper>
-              {" "}
               <MainDetailContainer>
                 {/* TODO: 여기다 맵 돌릴 것 */}
                 <MainCard />
@@ -21,11 +17,10 @@ const Main = () => {
                 <MainCard />
                 <MainCard />
                 <MainCard />
-                <MainCard /> <MainCard />
                 <MainCard />
                 <MainCard />
-              </MainDetailContainer>{" "}
-            </MainDetailWrapper>{" "}
+              </MainDetailContainer>
+            </MainDetailWrapper>
           </MainLayoutSection>
         </MainLayoutContainer>
       </MainLayoutWrapper>
@@ -72,7 +67,7 @@ const MainLayoutSection = styled.div`
   height: 100vh;
   background: rgb(255, 255, 255);
   flex-flow: row nowrap;
-  /* flex-shrink: 1; */
+  flex-shrink: 1;
 `;
 
 const MainDetailWrapper = styled.div`

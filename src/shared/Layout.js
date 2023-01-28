@@ -6,7 +6,7 @@ function Layout({ children }) {
   return (
     <div>
       <LayoutStyles>
-        <LayoutStyleInside>{children} </LayoutStyleInside>
+        <LayoutStyleInside>{children}</LayoutStyleInside>
       </LayoutStyles>
     </div>
   );
@@ -41,7 +41,9 @@ const LayoutStyleInside = styled.div`
   border-bottom-right-radius: 0;
   flex-shrink: 0;
   position: static;
-  justify-content: space-between;
+  /* 나중에 지울것 */
+  /* justify-content: space-between; */
+  justify-content: baseline;
   align-items: stretch;
   flex-direction: row;
   overflow-x: visible;

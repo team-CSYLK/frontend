@@ -123,6 +123,12 @@ const AddPost = () => {
   const dragOverlayClass = dragOverlay ? "overlay" : "";
 
   const navigate = useNavigate();
+  const onGoBackMain = () => {
+    navigate(-1);
+  };
+  const onNextModal = () => {
+    // navigate(+1);
+  };
 
   return (
     <>
@@ -139,7 +145,7 @@ const AddPost = () => {
               <StBox>
                 <StAddTitle className="_ac78" tabindex="-1">
                   <StTitleRow>
-                    <StGoBack onClick={() => navigate(-1)}>
+                    <StGoBack onClick={onGoBackMain}>
                       <svg
                         aria-label="돌아가기"
                         className="_ab6-"
@@ -171,7 +177,7 @@ const AddPost = () => {
                     </StGoBack>
 
                     <StAddText className="_ac7a">새 게시물 만들기</StAddText>
-                    <StSend></StSend>
+                    <StSend onClick={onNextModal}>Next</StSend>
                   </StTitleRow>
                   <StHr />
                 </StAddTitle>
@@ -279,8 +285,8 @@ const StBoxSize = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 1920px;
-  //width: 585px;
+
+  width: 585px;
   height: 628px;
 `;
 const StBox = styled.div`
@@ -306,20 +312,22 @@ const StAddTitle = styled.div`
   justify-content: center;
 `;
 const StTitleRow = styled.div`
-  width: inherit;
+  width: 460px;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  right: 10px;
+  top: 8px;
 `;
 const StGoBack = styled.button`
-  position: relative;
-  left: 10px;
   height: 24px;
-  border: 0px;
+
   cursor: pointer;
-  /* background-color: azure; */
+  border: 0px;
+  background-color: transparent;
 `;
 
 const StAddText = styled.div`
@@ -332,10 +340,13 @@ const StAddText = styled.div`
 const StSend = styled.div`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 const StHr = styled.hr`
   width: 499px;
   border: 1px 0px 0px 0px solid black;
+  position: relative;
+  top: 12px;
 `;
 const StInputImg = styled.div`
   height: 500px;

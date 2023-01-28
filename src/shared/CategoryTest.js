@@ -5,7 +5,7 @@ import Logo from "../components/Logo";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import AddPost from "../pages/components/AddPost";
-const Category = () => {
+const CategoryTest = () => {
   // 로그인 페이지에서만 카테고리 보이지 않기
   const locationNow = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -186,7 +186,6 @@ const Category = () => {
             position: "fixed",
             // marginLeft: "auto",
             // marginRight: "auto",
-            // marginTop: "250px",
             margin: "auto",
             border: "0px",
             width: "585px",
@@ -207,7 +206,7 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryTest;
 
 const CategoryWrapper = styled.div`
   transform: translateX(0px);

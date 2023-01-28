@@ -30,6 +30,7 @@ const EditProfile = () => {
   return (
     <>
       <StEdit>
+        <StEditTitle>Edit Profile</StEditTitle>
         <StProfile>
           <StProfImg>
             {imageSrc && <StImg src={imageSrc} alt="프로필 이미지" />}
@@ -52,33 +53,38 @@ const EditProfile = () => {
           </StProfInfo>
         </StProfile>
         <StInputForm>
-          <StFixed>
-            <StContent>
-              <StFirst>이름</StFirst>
-              <StSecond>
-                <input></input>
-              </StSecond>
-            </StContent>
-            <StContent>
-              <StFirst>닉네임</StFirst>
-              <StSecond>
-                <input></input>
-              </StSecond>
-            </StContent>
-          </StFixed>
           <StContent>
-            <StFirst>소개</StFirst>
+            <StFirst>이름</StFirst>
             <StSecond>
-              <form>
-                <StTextarea
-                  value={inputContent}
-                  onChange={onTextarea}
-                  maxLength="50"
-                />
-                <span id="byteInfo">{inputContent.length}</span>/ 50
-              </form>
+              <input></input>
             </StSecond>
           </StContent>
+          <StContent>
+            <StFirst>닉네임</StFirst>
+            <StSecond>
+              <input></input>
+            </StSecond>
+          </StContent>
+
+          <StContent2>
+            <StFixed>
+              <StFirstIntro>소개</StFirstIntro>
+              <StSecondIntro>
+                <form>
+                  <StTextarea
+                    value={inputContent}
+                    onChange={onTextarea}
+                    maxLength="50"
+                  />
+                  <br />
+                  <StTextCount>
+                    <span id="byteInfo">{inputContent.length}</span> / 50
+                  </StTextCount>
+                </form>
+              </StSecondIntro>
+            </StFixed>
+          </StContent2>
+          <StSubmitBtn>제출</StSubmitBtn>
         </StInputForm>
       </StEdit>
     </>
@@ -89,33 +95,44 @@ export default EditProfile;
 
 const StEdit = styled.div`
   width: 500px;
-  height: 800px;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
   margin-left: 200px;
+  margin-top: 120px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 4px 1px #dcdcdc;
+`;
+const StEditTitle = styled.div`
+  font-size: 40px;
+  font-weight: 500;
+
+  font-family: "Waterfall", cursive;
+  margin-bottom: 20px;
 `;
 const StProfile = styled.div`
-  height: 82px;
+  height: 140px;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 60px;
+
   position: relative;
-  left: 40px;
+  left: 60px;
 `;
 const StProfImg = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   border-radius: 100px;
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 30px;
+
   overflow: hidden;
 `;
 const StImg = styled.img`
@@ -141,7 +158,7 @@ const StChangeBtn = styled.label`
 `;
 
 const StInputForm = styled.div`
-  height: 82px;
+  height: 300px;
 
   display: flex;
   flex-direction: column;
@@ -165,10 +182,52 @@ const StFirst = styled.div`
 const StSecond = styled.div`
   width: 300px;
 `;
+
+const StContent2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0px 10px 0px;
+`;
+const StFixed = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+const StFirstIntro = styled.div`
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 30px;
+`;
+const StSecondIntro = styled.div`
+  width: 300px;
+`;
 const StTextarea = styled.textarea`
   width: 156px;
-  resize: vertical;
+  height: 120px;
+  resize: none;
+
   padding: 0px;
   box-sizing: border-box;
 `;
-const StFixed = styled.div``;
+const StTextCount = styled.div`
+  color: #d3d3d3;
+`;
+const StSubmitBtn = styled.button`
+  margin-top: 30px;
+  width: 80px;
+  height: 60px;
+
+  padding: 4px;
+  border: 0px;
+  border-radius: 100px;
+  background-color: royalblue;
+  color: white;
+  font-weight: 700;
+`;

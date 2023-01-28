@@ -5,7 +5,22 @@ const Profile = () => {
     <>
       <ProfileLayoutWrapper>
         <ProfileLayoutContainer>
-          <ProfileContentHeader>프로필</ProfileContentHeader>
+          <ProfileContentHeader>
+            <ProfileContentHeaderImageBox>
+              <ProfileContentHeaderImageSize>
+                <ProfileContentHeaderImage src="img\271606564_330827408893207_6648318583164176157_n.jpg"></ProfileContentHeaderImage>
+              </ProfileContentHeaderImageSize>
+            </ProfileContentHeaderImageBox>
+            <ProfileContentHeaderTextBox>
+              <ProfileHeaderNicknameBox>
+                <div> 닉네임</div>
+                <div>
+                  <button>프로필 편집</button>
+                </div>
+              </ProfileHeaderNicknameBox>
+              <div> 게시물 수</div>
+            </ProfileContentHeaderTextBox>
+          </ProfileContentHeader>
           <ProfileContentTitle>
             <ProfileContentTitleBorder>
               <svg
@@ -121,13 +136,69 @@ const ProfileContentHeader = styled.div`
   justify-content: center;
 `;
 
-const ProfileContentHeaderInbox = styled.div`
+const ProfileContentHeaderImageBox = styled.div`
+  margin-right: 30px;
+  flex-grow: 1;
+  flex-basis: 0;
+  justify-content: center;
+  flex-direction: column;
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
   position: relative;
 `;
+const ProfileContentHeaderImageSize = styled.div`
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  box-sizing: border-box;
+  /* height: 100%; */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  border-radius: 50%;
+  /* width: 150px; */
+`;
 
+const ProfileContentHeaderTextBox = styled.div`
+  flex-grow: 2;
+  flex-basis: 30px;
+  flex-shrink: 1;
+
+  font-size: 100%;
+  min-width: 0;
+  flex-direction: column;
+  display: flex;
+  box-sizing: border-box;
+  color: rgb(38, 38, 38);
+  align-items: stretch;
+  position: relative;
+  vertical-align: baseline;
+`;
+
+const ProfileHeaderNicknameBox = styled.div`
+  flex-shrink: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  font-size: 100%;
+  color: rgb(38, 38, 38);
+  gap: 20px;
+  div {
+    flex-shrink: 1;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+  }
+`;
+
+const ProfileContentHeaderImage = styled.img`
+  /* height: 150px; */
+  height: 100%;
+  object-fit: contain;
+`;
 const ProfileContentTitle = styled.div`
   font-weight: 700;
   justify-content: center;

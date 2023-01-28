@@ -28,6 +28,7 @@ const LayoutStyles = styled.div`
   min-height: 100vh;
   flex-direction: column;
   min-width: 100vw;
+  /* justify-content: center; */
   /* margin-right: 2000000px; */
   /* overflow-y: scroll !important; */
 `;

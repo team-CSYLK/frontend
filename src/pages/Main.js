@@ -67,7 +67,7 @@ const MainLayoutSection = styled.div`
   height: 100vh;
   background: rgb(255, 255, 255);
   flex-flow: row nowrap;
-  /* flex-shrink: 1; */
+  flex-shrink: 1;
 `;
 
 const MainDetailWrapper = styled.div`

@@ -13,8 +13,9 @@ const Router = () => {
 
   return (
     <BrowserRouter>
-      <Category />
       <Layout>
+        <Category />
+
         <Routes>
           <Route path="/" element={<Login />} />
 
@@ -24,7 +25,6 @@ const Router = () => {
           <Route path="/Edit" element={<EditProfile />} />
         </Routes>
       </Layout>
-
     </BrowserRouter>
   );
 };

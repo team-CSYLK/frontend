@@ -16,11 +16,17 @@ const EditProfile = () => {
     });
   };
   //const [fileImg, setFileImg] = useState();
+  const [inputContent, setInputContent] = useState("");
+  // console.log(inputContent);
   const onChangeProfileFile = (e) => {
     profileImgToBase64(e.target.files[0]);
   };
 
-  const onTextarea = () => {};
+  const onTextarea = (e) => {
+    // console.log(e.target.value);
+    setInputContent(e.target.value);
+    // console.log(e.target.value.length);
+  };
   return (
     <>
       <StEdit>
@@ -64,8 +70,12 @@ const EditProfile = () => {
             <StFirst>소개</StFirst>
             <StSecond>
               <form>
-                <StTextarea onKeyUp={onTextarea} />
-                <span id="byteInfo">0</span>/ 50
+                <StTextarea
+                  value={inputContent}
+                  onChange={onTextarea}
+                  maxLength="50"
+                />
+                <span id="byteInfo">{inputContent.length}</span>/ 50
               </form>
             </StSecond>
           </StContent>

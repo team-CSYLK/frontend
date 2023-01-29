@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import MainCard from "../components/MainCard";
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __getPost } from "../redux/modules/postsSlice";
 const Main = () => {
+  const dispatch = useDispatch();
+  // const { list } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(__getPost());
+  }, [dispatch]);
+
   return (
     <>
       <MainLayoutWrapper>

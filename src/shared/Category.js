@@ -184,8 +184,8 @@ const Category = () => {
         style={{
           content: {
             position: "fixed",
-            // marginLeft: "auto",
-            // marginRight: "auto",
+            marginLeft: "auto",
+            marginRight: "auto",
             // marginTop: "250px",
             margin: "auto",
             border: "0px",

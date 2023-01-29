@@ -1,8 +1,14 @@
 import React from "react";
 
 import styled from "styled-components";
+import { REST_API_KEY, REDIRECT_URI } from "./socialLogin/KakaoData";
 
 const Login = () => {
+  const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const onkakaoBtn = () => {
+    window.location.href = KAKAO_AUTH_URI;
+  };
   return (
     <>
       <StLayout>
@@ -22,8 +28,8 @@ const Login = () => {
           <StLoginForm>
             <StGoogleBtn>Google Login</StGoogleBtn>
             <br />
-            <StKakaoBtn>
-              <a href="http://becool0514.shop/auth/login/kakao">Kakao Login</a>
+            <StKakaoBtn onClick={onkakaoBtn}>
+              <a>Kakao Login</a>
             </StKakaoBtn>
           </StLoginForm>
         </StRight>

@@ -8,7 +8,7 @@ import EditProfile from "../pages/EditProfile";
 import Category from "./Category";
 import Layout from "./Layout";
 import CategoryTest from "./CategoryTest";
-import styled from "styled-components";
+import KakaoLogin from "../pages/socialLogin/KakaoLogin";
 
 const Router = () => {
   //   const checkLogin = sessionStorage.getItem("memberinfo");
@@ -19,6 +19,7 @@ const Router = () => {
         <CategoryTest />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/kakaologin" element={<KakaoLogin />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/Profile" element={<Profile />} />
           {/* todo  :  propfile 주소 바껴야함 */}

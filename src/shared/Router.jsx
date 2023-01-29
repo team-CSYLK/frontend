@@ -7,6 +7,8 @@ import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
 import Category from "./Category";
 import Layout from "./Layout";
+import CategoryTest from "./CategoryTest";
+import styled from "styled-components";
 
 const Router = () => {
   //   const checkLogin = sessionStorage.getItem("memberinfo");
@@ -18,7 +20,6 @@ const Router = () => {
 
         <Routes>
           <Route path="/" element={<Login />} />
-
           <Route path="/Main" element={<Main />} />
           <Route path="/Profile" element={<Profile />} />
           {/* todo  :  propfile 주소 바껴야함 */}

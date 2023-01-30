@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import axiosInstance from "../../api/axiosInstance";
 const initialState = {
   loginList: [],
   isLogin: false,
@@ -25,18 +25,21 @@ export const __postLogin = createAsyncThunk(
         });
       if (data.status === 200) {
         // alert("로그인 성공");
-        console.log(data.data.nickname);
-        if (data.data.nickname === undefined) {
-          // window.location.href()
-          alert("뺴애액");
+        console.log(data);
+        console.log(data.data);
+        // console.log(data.data.nickname);
+        if (data.data === "") {
+          window.location.href = "/SignNick";
+        } else {
+          sessionStorage.setItem("nickname", data.data);
+          window.location.href = "/Main";
         }
-        sessionStorage.setItem("nickname", data.data);
       }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      //   if (error.response.status === 409) {
-      //     alert("아이디와 패스워드를 확인해주세요");
-      //   }
+      // if (error.response.status === 409) {
+      //   alert("아이디와 패스워드를 확인해주세요");
+      // }
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -47,15 +50,20 @@ export const __addNick = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload, " 썽크로 들어오나?");
     try {
-      const data = await axios.post("/sendNickname").then((res) => {
-        sessionStorage.setItem("authorization", res.headers.authorization);
-        return res;
-      });
-      //   if (data.status === 200) {
-      //     sessionStorage.setItem("nickname", data.data);
-      //   }
+      const data = await axiosInstance
+        .post("/sendNickname", payload)
+        .then((res) => {
+          return res;
+        });
+      if (data.status === 200) {
+        sessionStorage.setItem("nickname", payload.nickname);
+        window.location.href = "/Main";
+      }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      if (error.response.status === 409) {
+        alert("중복된 닉네임입니다.");
+      }
       return thunkAPI.rejectWithValue(error);
     }
   }

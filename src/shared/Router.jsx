@@ -5,7 +5,6 @@ import Login from "../pages/Login";
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
-
 import Layout from "./Layout";
 import Category from "./Category";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";

@@ -11,6 +11,10 @@ const Category = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
+  // url 은 일반적으로 소문자로 인식되는데, relocation의 경우 대문자로 보낼 수 있음.
+  if (locationNow.pathname === "/SignNick") return null;
+  if (locationNow.pathname === "/signnick") return null;
+  if (locationNow.pathname === "/kakaologin") return null;
 
   return (
     <>

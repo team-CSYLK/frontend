@@ -190,7 +190,7 @@ const Category = () => {
             // marginTop: "250px",
             margin: "auto",
             border: "0px",
-            width: "585px",
+            width: "806px",
             height: "620px",
             borderRadius: "20px",
             padding: "10px",

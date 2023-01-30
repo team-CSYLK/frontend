@@ -7,7 +7,7 @@ import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
 
 import Layout from "./Layout";
-import CategoryTest from "./CategoryTest";
+import Category from "./Category";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";
 import AddPost2 from "../pages/components/AddPost2";
 
@@ -17,7 +17,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <CategoryTest />
+        <Category />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/oauth/callback/kakao" element={<KakaoLogin />} />

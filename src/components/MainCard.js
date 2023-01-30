@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const MainCard = () => {
+const MainCard = ({ post }) => {
   return (
     <>
       <MainArticle>
-        {" "}
         <MainArticleDiv>
           <MainArticleHeader>
             <MainArticleProfile>

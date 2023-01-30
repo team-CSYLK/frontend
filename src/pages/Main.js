@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getPost } from "../redux/modules/postsSlice";
 const Main = () => {
   const dispatch = useDispatch();
-  // const { list } = useSelector((state) => state.post);
-
+  const { list } = useSelector((state) => state.post);
+  const lists = list.data;
+  console.log(lists);
   useEffect(() => {
     dispatch(__getPost());
   }, [dispatch]);
@@ -19,15 +20,9 @@ const Main = () => {
           <MainLayoutSection>
             <MainDetailWrapper>
               <MainDetailContainer>
-                {/* TODO: 여기다 맵 돌릴 것 */}
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
+                {lists?.map((post) => (
+                  <MainCard key={post.postId} post={post} />
+                ))}
               </MainDetailContainer>
             </MainDetailWrapper>
           </MainLayoutSection>

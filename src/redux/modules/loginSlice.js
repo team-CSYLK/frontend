@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import axiosInstance from "../../api/axiosInstance";
 const initialState = {
   loginList: [],
   isLogin: false,
@@ -27,10 +27,10 @@ export const __postLogin = createAsyncThunk(
         // alert("로그인 성공");
         console.log(data.data.nickname);
         if (data.data.nickname === undefined) {
-          // window.location.href()
-          alert("뺴애액");
+          window.location.href = "SignNick";
+        } else {
+          sessionStorage.setItem("nickname", data.data);
         }
-        sessionStorage.setItem("nickname", data.data);
       }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -47,10 +47,11 @@ export const __addNick = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload, " 썽크로 들어오나?");
     try {
-      const data = await axios.post("/sendNickname").then((res) => {
-        sessionStorage.setItem("authorization", res.headers.authorization);
-        return res;
-      });
+      const data = await axiosInstance
+        .post("/sendNickname", payload)
+        .then((res) => {
+          return res;
+        });
       //   if (data.status === 200) {
       //     sessionStorage.setItem("nickname", data.data);
       //   }

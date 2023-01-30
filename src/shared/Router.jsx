@@ -7,7 +7,6 @@ import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
 import Category from "./Category";
 import Layout from "./Layout";
-import CategoryTest from "./CategoryTest";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";
 import SingNick from "../pages/SingNick";
 const Router = () => {

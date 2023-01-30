@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { __addNick } from "../redux/modules/loginSlice";
 export const SingNick = () => {
   const dispatch = useDispatch();
   const nickInput = useRef();
@@ -9,7 +10,7 @@ export const SingNick = () => {
     if (nickInput.current.value.trim() === "") {
       return alert("닉네임을 입력해주세요.");
     }
-    // dispatch(__addComment({  nickname: nickInput.current.value }));
+    dispatch(__addNick({ nickname: nickInput.current.value }));
   };
 
   return (

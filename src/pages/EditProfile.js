@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const EditProfile = () => {
-  //미리보기
+  //편집 미리보기
   const [imageSrc, setImageSrc] = useState();
   const profileImgToBase64 = async (fileBlob) => {
     const reader = new FileReader();
@@ -15,13 +15,12 @@ const EditProfile = () => {
       };
     });
   };
-  //const [fileImg, setFileImg] = useState();
-  const [inputContent, setInputContent] = useState("");
-  // console.log(inputContent);
+
   const onChangeProfileFile = (e) => {
     profileImgToBase64(e.target.files[0]);
   };
-
+  const [inputContent, setInputContent] = useState("");
+  // console.log(inputContent);
   const onTextarea = (e) => {
     // console.log(e.target.value);
     setInputContent(e.target.value);

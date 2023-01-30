@@ -2,12 +2,11 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 function Layout({ children }) {
   const locationNow = useLocation();
+  // layout 로그인 페이지에만 다르게 하기
   if (locationNow.pathname === "/") return <div>{children}</div>;
   return (
     <div>
-      <LayoutStyles>
-        <LayoutStyleInside>{children}</LayoutStyleInside>
-      </LayoutStyles>
+      <LayoutStyles>{children} </LayoutStyles>
     </div>
   );
 }
@@ -22,33 +21,36 @@ const LayoutStyles = styled.div`
   font-size: 14px;
   line-height: 18px;
   margin: 0;
-  overflow-y: visible;
+  overflow-y: none;
   display: flex;
   position: relative;
-  outline: 1px solid #036cdb !important;
-  min-height: calc(100vh - 0px);
-  min-height: inherit;
+  outline: 1px solid 036cdb !important;
+  min-height: 100vh;
   flex-direction: column;
-  overflow-y: scroll !important;
+  min-width: 100vw;
+  /* justify-content: center; */
+  /* margin-right: 2000000px; */
+  /* overflow-y: scroll !important; */
 `;
-const LayoutStyleInside = styled.div`
-  height: 100%;
-  overflow-y: visible;
-  border-bottom-left-radius: 0;
-  background-color: rgb(250, 250, 250);
-  box-sizing: border-box;
-  display: flex;
-  border-bottom-right-radius: 0;
-  flex-shrink: 0;
-  position: static;
-  /* 나중에 지울것 */
-  /* justify-content: space-between; */
-  justify-content: baseline;
-  align-items: stretch;
-  flex-direction: row;
-  overflow-x: visible;
-  align-self: auto;
-  flex-grow: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-`;
+// const LayoutStyleInside = styled.div`
+//   height: 100%;
+//   /* overflow-y: scroll; */
+//   border-bottom-left-radius: 0;
+//   /* background-color: rgb(250, 250, 250); */
+//   background: rgb(255, 255, 255);
+//   /* border: 1px solid red; */
+//   box-sizing: border-box;
+//   display: flex;
+//   border-bottom-right-radius: 0;
+//   flex-shrink: 0;
+//   position: static;
+//   justify-content: flex-start;
+//   align-items: stretch;
+//   flex-direction: row;
+//   overflow-x: none; // 넘치는 거 그냥 보이기
+//   align-self: auto;
+//   flex-grow: 0;
+//   border-top-left-radius: 0;
+//   border-top-right-radius: 0;
+//   /* position: fixed; */
+// `;

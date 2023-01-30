@@ -2,6 +2,11 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import addPostSlice, {
+  __addPostFormData,
+} from "../../redux/modules/addPostSlice";
+import AddPost2 from "./AddPost2";
 
 const config = {
   allowedFileFormats: ["image/jpeg", "image/jpg", "image/png"],
@@ -42,6 +47,7 @@ export const preventBrowserDefaults = (e) => {
 
 const AddPost = () => {
   // 여기에다가 AddPost2를 함수 적용시켜서 하기.
+  const dispatch = useDispatch();
 
   // 파일첨부 기능
   //미리보기
@@ -74,6 +80,21 @@ const AddPost = () => {
     }
   };
 
+  const onClickFormData = (e) => {
+    e.preventDefault();
+
+    const newList = {
+      imageSrc,
+    };
+
+    // 이미지데이터
+    formData.append("image", fileImg);
+    for (const form of formData) {
+      console.log("form최종", form);
+    }
+
+    dispatch(__addPostFormData(formData));
+  };
   //드래그앤드롭 기능
   let [dragOverlay, setDragOverlay] = useState(false);
   const [data, setData] = useState(false);
@@ -128,9 +149,9 @@ const AddPost = () => {
   const onGoBackMain = () => {
     navigate(-1);
   };
-  const onNextModal = () => {
-    // navigate(+1);
-  };
+  // const onNextModal = () => {
+  //   // navigate(+1);
+  // };
 
   return (
     <>
@@ -147,6 +168,7 @@ const AddPost = () => {
               <StBox>
                 <StAddTitle className="_ac78" tabindex="-1">
                   <StTitleRow>
+                    {/* 뒤로가기는 나중에 구현 */}
                     <StGoBack onClick={onGoBackMain}>
                       <svg
                         aria-label="돌아가기"
@@ -179,7 +201,7 @@ const AddPost = () => {
                     </StGoBack>
 
                     <StAddText className="_ac7a">새 게시물 만들기</StAddText>
-                    <StSend onClick={onNextModal}>Next</StSend>
+                    <StSend>Next</StSend>
                   </StTitleRow>
                   <StHr />
                 </StAddTitle>
@@ -196,7 +218,7 @@ const AddPost = () => {
                       enctype="multipart/form-data"
                       method="POST"
                       role="presentation"
-                      // onSubmit={onClickFormData}
+                      onSubmit={onClickFormData}
                     >
                       {/* 이미지넣는 아이콘 */}
                       <StSvg
@@ -251,7 +273,7 @@ const AddPost = () => {
                         {error && <p className="error">{error}</p>}
 
                         {/* 드래그앤드롭 미리보기 */}
-                        {data && <StImg2 alt="" src={data} />}
+                        {data && <StImg alt="" src={data} />}
                         <Stdiv>사진과 동영상을 여기에 끌어다 놓으세요</Stdiv>
                       </StDNDImg>
                     </StForm>

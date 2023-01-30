@@ -7,6 +7,7 @@ const KakaoLogin = () => {
     let code = params.get("code"); // 인가코드 받는 부분
     let grant_type = "authorization_code";
     let client_id = "c4b5d45db83de31f0efbf8cfebca882f";
+    let client_secret = "2EMFnKfCXvOfzPHN1SJci1ecUzb1kvOx";
     console.log("code", code);
     //console.log("grant_type", grant_type);
 
@@ -15,7 +16,8 @@ const KakaoLogin = () => {
         `https://kauth.kakao.com/oauth/token?
         grant_type=${grant_type}
         &client_id=${client_id}
-        &redirect_uri=http://localhost:3000/kakaologin
+        &client_secret=${client_secret}
+        &redirect_uri=http://localhost:3000/oauth/callback/kakao
         &code=${code}`,
         {
           headers: {

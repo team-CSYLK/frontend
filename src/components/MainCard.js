@@ -14,10 +14,7 @@ const MainCard = ({ post }) => {
             </MainArticleProfile>
           </MainArticleHeader>
           <MainArticleBody>
-            <CardImg
-              alt="kimdami"
-              src="img/271606564_330827408893207_6648318583164176157_n.jpg"
-            />
+            <CardImg alt="대충 이미지 불러오기 실패" src={post.image} />
           </MainArticleBody>
           <MainArticleFooter>
             <CardFooterSection>

@@ -1,21 +1,24 @@
-import React from "react";
-
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { REST_API_KEY, REDIRECT_URI } from "./socialLogin/KakaoData";
-
-const Login = () => {
-  const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`
-  const onkakaoBtn = () => {
-    window.location.href = KAKAO_AUTH_URI;
+import { useDispatch } from "react-redux";
+export const SingNick = () => {
+  const dispatch = useDispatch();
+  const nickInput = useRef();
+  const onAddNickHandler = (event) => {
+    event.preventDefault();
+    if (nickInput.current.value.trim() === "") {
+      return alert("닉네임을 입력해주세요.");
+    }
+    // dispatch(__addComment({  nickname: nickInput.current.value }));
   };
+
   return (
     <>
       <StLayout>
         <StImg src="img/insaneLoginImg_001.png" />
         <StRight>
           <StImg2 src="img/insanegram.png" />
-          <StTitle className="_a8td _a6sv _a4kl _a4kh">
+          <StTitle>
             Our features help you express yourself and connect with the people
             you
             <span className="_a6wh _a6wk">
@@ -25,20 +28,24 @@ const Login = () => {
             <StSmallText>Create and share with your friends.</StSmallText>
             <StLine />
           </StTitle>
-          <StLoginForm>
-            <StGoogleBtn>Google Login</StGoogleBtn>
-            <br />
-            <StKakaoBtn onClick={onkakaoBtn}>
-              <a>Kakao Login</a>
-            </StKakaoBtn>
-          </StLoginForm>
+          <StLoginForm>닉네임을 입력해주세요</StLoginForm>
+          <StSignNickInput
+            maxLength="11"
+            placeholder="11글자까지 가능합니다"
+            type="text"
+            ref={nickInput}
+          />
+          <StSignNickButton onClick={onAddNickHandler}>
+            {" "}
+            닉네임 입력
+          </StSignNickButton>
         </StRight>
       </StLayout>
     </>
   );
 };
 
-export default Login;
+export default SingNick;
 
 const StLayout = styled.div`
   max-width: 1920px;
@@ -109,23 +116,27 @@ const StLoginForm = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const StGoogleBtn = styled.button`
+const StSignNickInput = styled.input`
   width: 200px;
   height: 40px;
+  margin-top: 10px;
   //margin: 20px;
   background-color: #f5f5f5;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 1px 2px 4px 1px #dcdcdc;
-  cursor: pointer;
+  text-align: center;
+  margin: 10px;
 `;
-const StKakaoBtn = styled.button`
+
+const StSignNickButton = styled.button`
   width: 200px;
   height: 40px;
   //margin: 20px;
   background-color: #ffd700;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 1px 2px 4px 1px #dcdcdc;
   cursor: pointer;
+  font-weight: 600;
 `;

@@ -12,6 +12,7 @@ const Category = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
+  if (locationNow.pathname === "/signnick") return null;
 
   return (
     <>
@@ -185,8 +186,8 @@ const Category = () => {
         style={{
           content: {
             position: "fixed",
-            marginLeft: "auto",
-            marginRight: "auto",
+            // marginLeft: "auto",
+            // marginRight: "auto",
             // marginTop: "250px",
             margin: "auto",
             border: "0px",

@@ -9,8 +9,7 @@ import EditProfile from "../pages/EditProfile";
 import Layout from "./Layout";
 import Category from "./Category";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";
-import AddPost2 from "../pages/components/AddPost2";
-
+import SingNick from "../pages/SingNick";
 const Router = () => {
   //   const checkLogin = sessionStorage.getItem("memberinfo");
 
@@ -18,10 +17,10 @@ const Router = () => {
     <BrowserRouter>
       <Layout>
         <Category />
-
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/oauth/callback/kakao" element={<KakaoLogin />} />
+          <Route path="/SignNick" element={<SingNick />} />
+          <Route path="/KaKaoLogin" element={<KakaoLogin />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/addpost2" element={<AddPost2 />} />
           <Route path="/Profile" element={<Profile />} />

@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import loginList from "../modules/loginSlice";
 const store = configureStore({
   reducer: {
-    addPostSlice,
+    // addPostSlice,
     // comments,
     loginList,
   },

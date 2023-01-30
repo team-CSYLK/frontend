@@ -11,6 +11,7 @@ const Category = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
+  if (locationNow.pathname === "/signnick") return null;
 
   return (
     <>

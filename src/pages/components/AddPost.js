@@ -41,6 +41,8 @@ export const preventBrowserDefaults = (e) => {
 };
 
 const AddPost = () => {
+  // 여기에다가 AddPost2를 함수 적용시켜서 하기.
+
   // 파일첨부 기능
   //미리보기
   const [imageSrc, setImageSrc] = useState();
@@ -285,7 +287,6 @@ const StBoxSize = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   width: 585px;
   height: 628px;
 `;

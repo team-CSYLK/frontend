@@ -3,13 +3,18 @@ import styled from "styled-components";
 import AddPost from "./AddPost";
 
 const AddPost2 = () => {
-  const onClickFormData = () => {};
+  const onChangeText = () => {};
+
+  //서버로 보내기,
+  const onSavePost = () => {};
+
   return (
     <>
       <StLayout>
         <StBox>
           <StTitleBox>
-            <button>뒤로</button>새 게시물 만들기 <button>공유하기</button>
+            <button>뒤로</button>새 게시물 만들기{" "}
+            <button onClick={onSavePost}>공유하기</button>
           </StTitleBox>
           <StFormData>
             <StInputImg>
@@ -20,9 +25,9 @@ const AddPost2 = () => {
                   placeholder="text"
                   method="post"
                   action="uploadForm"
-                  onSubmit={onClickFormData}
+                  onChange={onChangeText}
                 />
-                <StLoca>위치추가</StLoca>
+                <StLoca>위치추가 아직은 무리입니다.ㅜㅜ</StLoca>
               </StRight>
             </StInputImg>
           </StFormData>

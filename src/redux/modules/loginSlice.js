@@ -19,8 +19,8 @@ export const __postLogin = createAsyncThunk(
         .post("http://becool0514.shop/kakao/code", payload)
         .then((res) => {
           // console.log(res.headers.authorization);
-          // sessionStorage.setItem("authorization", res.headers.authorization);
-          // sessionStorage.setItem("refreshToken", res.data.refreshToken);
+          sessionStorage.setItem("authorization", res.headers.authorization);
+          //   sessionStorage.setItem("refreshToken", res.data.refreshToken);
           return res;
         });
       if (data.status === 200) {

@@ -158,7 +158,7 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Main" role="link" tabindex="0">
+              <CategoryEachLink href="/Profile" role="link" tabindex="0">
                 {/*TODO: 여기다 href 주소 수정.. 닉네임을 로컬로 받아야함 */}
                 <CategoryInLink>
                   <div>
@@ -212,8 +212,16 @@ export default Category;
 
 const CategoryWrapper = styled.div`
   transform: translateX(0px);
-  z-index: 1;
-  width: 335px;
+  z-index: 1; // 먼저 보이게 하는거
+  max-width: 320px;
+  position: fixed;
+  top: 0px;
+  @media screen and (max-width: 1300px) {
+    width: 250px;
+  }
+  @media screen and (max-width: 900px) {
+    width: 100px;
+  }
   padding-bottom: 20px;
   background-color: rgb(255, 255, 255);
   padding-right: 12px;
@@ -221,9 +229,10 @@ const CategoryWrapper = styled.div`
   padding-top: 8px;
   flex-direction: column;
   align-items: flex-start;
-  box-sizing: border-box;
+  box-sizing: border-box; //안에 넣기
   display: flex;
-  height: 100dvh;
+  height: 100vh;
+  border-right: 1px solid rgb(219, 219, 219);
 `;
 const CategoryOutBox = styled.div`
   width: 100%;
@@ -254,24 +263,24 @@ const CategoryEachBox = styled.div`
 const CategoryEachLink = styled.a`
   text-decoration: none;
   color: rgb(0, 55, 107);
-  display: inline;
-  padding-left: 0;
+  display: inline; //같은 줄 차지가능
+  /* padding-left: 0; */
   background-color: transparent;
   touch-action: manipulation;
-  padding-top: 0;
+  /* padding-top: 0; */
   list-style: none;
-  margin-top: 0;
-  border-left: 0;
-  margin-bottom: 0;
-  border-bottom: 0;
-  box-sizing: border-box;
-  border-top: 0;
-  padding-right: 0;
+  /* margin-top: 0; */
+  /* border-left: 0; */
+  /* margin-bottom: 0; */
+  /* border-bottom: 0; */
+  box-sizing: border-box; //경계선 안쪽
+  /* border-top: 0; */
+  /* padding-right: 0; */
   cursor: pointer;
-  margin-left: 0;
-  margin-right: 0;
+  /* margin-left: 0; */
+  /* margin-right: 0; */
 
-  -webkit-tap-highlight-color: transparent;
+  /* -webkit-tap-highlight-color: transparent; */
   border-right: 0;
   outline: none;
   padding-bottom: 0;
@@ -335,7 +344,10 @@ const CategoryEachWord = styled.div`
   line-height: 24px;
   margin: -6px 0 -6px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif; ;
+    Arial, sans-serif;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const CategorySvg = styled.svg`

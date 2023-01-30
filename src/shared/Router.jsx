@@ -18,6 +18,7 @@ const Router = () => {
     <BrowserRouter>
       <Layout>
         <Category />
+
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/oauth/callback/kakao" element={<KakaoLogin />} />

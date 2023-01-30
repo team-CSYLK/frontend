@@ -9,16 +9,17 @@ import Category from "./Category";
 import Layout from "./Layout";
 import CategoryTest from "./CategoryTest";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";
-
+import SingNick from "../pages/SingNick";
 const Router = () => {
   //   const checkLogin = sessionStorage.getItem("memberinfo");
 
   return (
     <BrowserRouter>
       <Layout>
-        <CategoryTest />
+        <Category />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/SignNick" element={<SingNick />} />
           <Route path="/KaKaoLogin" element={<KakaoLogin />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/Profile" element={<Profile />} />

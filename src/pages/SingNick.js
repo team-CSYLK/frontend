@@ -1,0 +1,142 @@
+import React, { useRef } from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+export const SingNick = () => {
+  const dispatch = useDispatch();
+  const nickInput = useRef();
+  const onAddNickHandler = (event) => {
+    event.preventDefault();
+    if (nickInput.current.value.trim() === "") {
+      return alert("닉네임을 입력해주세요.");
+    }
+    // dispatch(__addComment({  nickname: nickInput.current.value }));
+  };
+
+  return (
+    <>
+      <StLayout>
+        <StImg src="img/insaneLoginImg_001.png" />
+        <StRight>
+          <StImg2 src="img/insanegram.png" />
+          <StTitle>
+            Our features help you express yourself and connect with the people
+            you
+            <span className="_a6wh _a6wk">
+              <StLovSpan>love</StLovSpan>
+            </span>
+            .<br />
+            <StSmallText>Create and share with your friends.</StSmallText>
+            <StLine />
+          </StTitle>
+          <StLoginForm>닉네임을 입력해주세요</StLoginForm>
+          <StSignNickInput
+            maxLength="11"
+            placeholder="11글자까지 가능합니다"
+            type="text"
+            ref={nickInput}
+          />
+          <StSignNickButton onClick={onAddNickHandler}>
+            {" "}
+            닉네임 입력
+          </StSignNickButton>
+        </StRight>
+      </StLayout>
+    </>
+  );
+};
+
+export default SingNick;
+
+const StLayout = styled.div`
+  max-width: 1920px;
+  min-width: 800px;
+  height: 800px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+const StImg = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 100px;
+
+  scale: 90%;
+`;
+const StRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  right: 400px;
+  top: -20px;
+  width: 300px;
+  height: 800px;
+  z-index: 99;
+`;
+const StImg2 = styled.img`
+  scale: 60%;
+`;
+const StTitle = styled.h5`
+  font-weight: 500;
+  margin-bottom: 50px;
+  margin-left: 10px;
+`;
+const StLovSpan = styled.span`
+  margin-left: 2px;
+  background-image: linear-gradient(
+    72.44deg,
+    #ff7a00 11.92%,
+    #ff0169 51.56%,
+    #d300c5 85.69%
+  );
+  -webkit-background-clip: text;
+  background-repeat: no-repeat;
+  color: transparent;
+  display: inline;
+  font-weight: 700;
+`;
+const StSmallText = styled.span`
+  font-weight: 700;
+`;
+const StLine = styled.hr`
+  margin-top: 40px;
+  width: 20px;
+  position: relative;
+  left: -10px;
+`;
+const StLoginForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const StSignNickInput = styled.input`
+  width: 200px;
+  height: 40px;
+  margin-top: 10px;
+  //margin: 20px;
+  background-color: #f5f5f5;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px 1px #dcdcdc;
+  text-align: center;
+  margin: 10px;
+`;
+
+const StSignNickButton = styled.button`
+  width: 200px;
+  height: 40px;
+  //margin: 20px;
+  background-color: #ffd700;
+  border: 0px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px 1px #dcdcdc;
+  cursor: pointer;
+  font-weight: 600;
+`;

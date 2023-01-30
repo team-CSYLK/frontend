@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import AddPost from "../pages/components/AddPost";
+import AddPost2 from "../pages/components/AddPost2";
 const Category = () => {
   // 로그인 페이지에서만 카테고리 보이지 않기
   const locationNow = useLocation();
@@ -190,7 +191,7 @@ const Category = () => {
             // marginTop: "250px",
             margin: "auto",
             border: "0px",
-            width: "585px",
+            width: "806px",
             height: "620px",
             borderRadius: "20px",
             padding: "10px",
@@ -202,7 +203,7 @@ const Category = () => {
         onRequestClose={() => setModalIsOpen(false)}
       >
         {/* TODO: 여기다가 add넣어주세요 */}
-        <AddPost></AddPost>
+        <AddPost />
       </ReactModal>
     </>
   );

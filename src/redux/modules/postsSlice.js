@@ -14,10 +14,10 @@ export const __getPost = createAsyncThunk(
     // console.log("get 실행하는가?");
     try {
       const data = await AxiosInstance.get("/posts");
-      console.log(data);
+      // console.log(data);
       if (data.status === 204) {
         // alert("로그인 성공");
-        console.log("기능");
+        // console.log("기능");
       }
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {

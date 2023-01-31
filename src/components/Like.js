@@ -7,14 +7,25 @@ import styled from "styled-components";
 const Like = (props) => {
   const dispatch = useDispatch();
   const [like, setLike] = useState(props.isLiked);
-
+  // console.log(props.like);
+  // console.log(props);
   useEffect(() => {
     setLike(props.isLiked);
   }, [props.isLiked]);
 
   const likeClick = () => {
+    // console.log(props.postId);
     setLike(!like);
     dispatch(__editLikeness(props.postId));
+    if (props.isLiked) {
+      like
+        ? props.setTotalLike(props.likes - 1)
+        : props.setTotalLike(props.likes);
+    } else if (!props.isLiked) {
+      like
+        ? props.setTotalLike(props.likes)
+        : props.setTotalLike(props.likes + 1);
+    }
   };
 
   return (

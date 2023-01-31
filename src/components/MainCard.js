@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Like from "./Like";
+import { useState } from "react";
 const MainCard = ({ post }) => {
-  console.log(post);
+  // console.log(post);
   //데이터 예시
+  const [totalLike, setTotalLike] = useState(post.likes);
+  console.log(post);
+  console.log(post.imageUrl);
+  // console.log(post.isLiked, post.postId);
   // {postId: 2, userId: 1, nickname: '김동동', imageProfile: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg', imageUrl: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png', …}
   return (
     <>
@@ -29,7 +34,12 @@ const MainCard = ({ post }) => {
               <span>
                 <CardFooterButton>
                   <div>
-                    <Like isLiked={post.isLiked} />
+                    <Like
+                      isLiked={post.isLiked}
+                      postId={post.postId}
+                      setTotalLike={setTotalLike}
+                      likes={post.likes}
+                    />
                     {/* <CardFooterSvg
                       aria-label="좋아요"
                       height="24"
@@ -64,7 +74,7 @@ const MainCard = ({ post }) => {
                 </CardFooterButton>
               </span>
             </CardFooterSection>
-            <CardFooterLikeCount>좋아요 {post.likes}개</CardFooterLikeCount>
+            <CardFooterLikeCount>좋아요 {totalLike}개</CardFooterLikeCount>
             <CardFooterContent>{post.postContent}</CardFooterContent>
           </MainArticleFooter>
         </MainArticleDiv>

@@ -4,7 +4,7 @@ import addPostSlice from "../modules/addPostSlice";
 import loginList from "../modules/loginSlice";
 const store = configureStore({
   reducer: {
-    addPostSlice,
+    // addPostSlice,
     // comments,
     loginList,
   },

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const EditProfile = () => {
-  //미리보기
+  //편집 미리보기
   const [imageSrc, setImageSrc] = useState();
   const profileImgToBase64 = async (fileBlob) => {
     const reader = new FileReader();
@@ -15,20 +15,19 @@ const EditProfile = () => {
       };
     });
   };
-  //const [fileImg, setFileImg] = useState();
-  const [inputContent, setInputContent] = useState("");
-  // console.log(inputContent);
+
   const onChangeProfileFile = (e) => {
     profileImgToBase64(e.target.files[0]);
   };
-
+  const [inputContent, setInputContent] = useState("");
+  // console.log(inputContent);
   const onTextarea = (e) => {
     // console.log(e.target.value);
     setInputContent(e.target.value);
     // console.log(e.target.value.length);
   };
   return (
-    <>
+    <StEditBox>
       <StEdit>
         <StEditTitle>Edit Profile</StEditTitle>
         <StProfile>
@@ -87,12 +86,20 @@ const EditProfile = () => {
           <StSubmitBtn>제출</StSubmitBtn>
         </StInputForm>
       </StEdit>
-    </>
+    </StEditBox>
   );
 };
 
 export default EditProfile;
-
+const StEditBox = styled.div`
+  margin-left: 320px;
+  @media screen and (max-width: 1300px) {
+    margin-left: 250px;
+  }
+  @media screen and (max-width: 900px) {
+    margin-left: 100px;
+  }
+`;
 const StEdit = styled.div`
   width: 500px;
   height: 600px;
@@ -100,7 +107,8 @@ const StEdit = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 200px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 120px;
   border-radius: 10px;
   box-shadow: 1px 2px 4px 1px #dcdcdc;

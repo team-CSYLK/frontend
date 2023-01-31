@@ -1,7 +1,7 @@
 import axios from "axios";
-const AxiosInstance = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: "https://becool0514.shop",
+const axiosInstance = axios.create({
+  baseURL: "http://becool0514.shop",
+  // baseURL: "http://localhost:3001",
   timeout: 10000,
   headers: {
     "content-type": "application/json;charset=UTF-8",
@@ -10,7 +10,8 @@ const AxiosInstance = axios.create({
 });
 //TODO: 서버랑 비교하고 수정하기.
 
-AxiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(function (config) {
+  // console.log("들어가나");
   const access_token = sessionStorage.getItem("authorization");
   if (access_token !== null) {
     // console.log(access_token);
@@ -22,4 +23,4 @@ AxiosInstance.interceptors.request.use(function (config) {
   return config;
 });
 
-export default AxiosInstance;
+export default axiosInstance;

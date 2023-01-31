@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import AxiosInstance from "../../api/AxiosInstance";
-
 const initialState = {
   list: [],
   error: null,

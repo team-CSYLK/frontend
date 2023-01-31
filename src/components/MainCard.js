@@ -2,12 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Like from "./Like";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 const MainCard = ({ post }) => {
+  const navigate = useNavigate();
   // console.log(post);
   //데이터 예시
   const [totalLike, setTotalLike] = useState(post.likes);
   console.log(post);
   console.log(post.imageUrl);
+  const moveToProfile = () => {
+    navigate(`/Main/${post.nickname}`);
+  };
   // console.log(post.isLiked, post.postId);
   // {postId: 2, userId: 1, nickname: '김동동', imageProfile: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg', imageUrl: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png', …}
   return (
@@ -22,7 +27,9 @@ const MainCard = ({ post }) => {
                 </ProfileContentHeaderImageSize>
               </ProfileContentHeaderImageBox>
 
-              <PostNickName> {post.nickname}</PostNickName>
+              <PostNickName onClick={moveToProfile}>
+                {post.nickname}
+              </PostNickName>
               <PostCreatAt>{post.createdAt}</PostCreatAt>
             </MainArticleProfile>
           </MainArticleHeader>
@@ -246,6 +253,7 @@ const ProfileContentHeaderImage = styled.img`
 
 const PostNickName = styled.div`
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const PostCreatAt = styled.div`

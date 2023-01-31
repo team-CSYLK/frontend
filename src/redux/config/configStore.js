@@ -4,7 +4,7 @@ import post from "../modules/postsSlice";
 import addPostSlice from "../modules/addPostSlice";
 import loginList from "../modules/loginSlice";
 import editSlice from "../modules/editSlice";
-
+import profile from "../modules/profileSlice";
 const store = configureStore({
   reducer: {
     addPostSlice,
@@ -12,6 +12,7 @@ const store = configureStore({
     // comments,
     post,
     loginList,
+    profile,
   },
 });
 

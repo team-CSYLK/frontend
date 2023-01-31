@@ -21,8 +21,9 @@ const Category = () => {
     // dispatch(checkLogout());
     window.location.href = "/";
   };
+  // 세션에 저장된 닉네임과 내 프로필 이미지 가져오기
   const nickName = sessionStorage.getItem("nickname");
-  console.log(nickName);
+  // console.log(nickName);
   const myImg = sessionStorage.getItem("myimg");
   // console.log(myImg);
   return (

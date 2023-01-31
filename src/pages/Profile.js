@@ -1,6 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 const Profile = () => {
+  //임시로 만들어둔 버튼
+
+  const navigate = useNavigate();
+  const onEditProfileHandler = () => {
+    navigate("/Edit");
+  };
   return (
     <>
       <ProfileLayoutWrapper>
@@ -15,7 +23,7 @@ const Profile = () => {
               <ProfileHeaderNicknameBox>
                 <div> 닉네임</div>
                 <div>
-                  <button>프로필 편집</button>
+                  <button onClick={onEditProfileHandler}>프로필 편집</button>
                 </div>
               </ProfileHeaderNicknameBox>
               <div> 게시물 수</div>

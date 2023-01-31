@@ -149,7 +149,7 @@ const StImg = styled.img`
 `;
 
 const StColumn = styled.div`
-  height: 82px;
+  height: 80px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -160,6 +160,7 @@ const StProfInfo = styled.div`
 `;
 const StInputProfileImg = styled.input``;
 const StChangeBtn = styled.label`
+  font-size: 12px;
   border: 0px;
   background-color: transparent;
   color: blue;
@@ -217,7 +218,7 @@ const StSecondIntro = styled.div`
   width: 300px;
 `;
 const StTextarea = styled.textarea`
-  width: 156px;
+  width: 150px;
   height: 120px;
   resize: none;
 
@@ -225,7 +226,10 @@ const StTextarea = styled.textarea`
   box-sizing: border-box;
 `;
 const StTextCount = styled.div`
+  width: 150px;
   color: #d3d3d3;
+  display: flex;
+  justify-content: flex-end;
 `;
 const StSubmitBtn = styled.button`
   margin-top: 30px;

@@ -21,6 +21,8 @@ const Category = () => {
     // dispatch(checkLogout());
     window.location.href = "/";
   };
+  const nickName = sessionStorage.getItem("nickname");
+  console.log(nickName);
 
   return (
     <>
@@ -120,7 +122,7 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Main" role="link" tabindex="0">
+              <CategoryEachLink role="link" tabindex="0">
                 {/*TODO: 여기다 메시지 주소 달아야 함  */}
                 <CategoryInLink>
                   <div>
@@ -167,7 +169,11 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Profile" role="link" tabindex="0">
+              <CategoryEachLink
+                href={`/Main/${nickName}`}
+                role="link"
+                tabindex="0"
+              >
                 {/*TODO: 여기다 href 주소 수정.. 닉네임을 로컬로 받아야함 */}
                 <CategoryInLink>
                   <div>

@@ -1,14 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { __getProfile } from "../redux/modules/profileSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const Profile = () => {
-  //임시로 만들어둔 버튼
-
+  const dispatch = useDispatch();
+  // 프로필 편집으로 이동
   const navigate = useNavigate();
   const onEditProfileHandler = () => {
     navigate("/Edit");
   };
+
+  const param = useParams();
+  //url값을 통해서 param
+  console.log(param.nickName);
+  // 본인 확인을 위해서 nickName 불러오기
+  const nickName = sessionStorage.getItem("nickname");
+
+  // url에 있는 nickname과 동일한 프로필 불러오기
+  useEffect(() => {
+    dispatch(__getProfile(param.nickName));
+  }, [dispatch]);
+  const profileUser = useSelector((state) => state.profile.profiles);
+  console.log(profileUser);
   return (
     <>
       <ProfileLayoutWrapper>
@@ -16,17 +33,22 @@ const Profile = () => {
           <ProfileContentHeader>
             <ProfileContentHeaderImageBox>
               <ProfileContentHeaderImageSize>
-                <ProfileContentHeaderImage src="img\271606564_330827408893207_6648318583164176157_n.jpg"></ProfileContentHeaderImage>
+                <ProfileContentHeaderImage
+                  src={profileUser.imageProfile}
+                ></ProfileContentHeaderImage>
               </ProfileContentHeaderImageSize>
             </ProfileContentHeaderImageBox>
             <ProfileContentHeaderTextBox>
               <ProfileHeaderNicknameBox>
-                <div> 닉네임</div>
+                <div> {profileUser.nickname} </div>
                 <div>
-                  <button onClick={onEditProfileHandler}>프로필 편집</button>
+                  {param.nickName === nickName && (
+                    <button onClick={onEditProfileHandler}>프로필 편집</button>
+                  )}
                 </div>
               </ProfileHeaderNicknameBox>
-              <div> 게시물 수</div>
+
+              <div> 게시글 : {profileUser.postsCount}</div>
             </ProfileContentHeaderTextBox>
           </ProfileContentHeader>
           <ProfileContentTitle>
@@ -99,7 +121,11 @@ const Profile = () => {
               <ProfileContentTitleText>게시물</ProfileContentTitleText>
             </ProfileContentTitleBorder>
           </ProfileContentTitle>
-          <ProfileContentDetailBox>카드들</ProfileContentDetailBox>
+          <ProfileContentDetailBox>
+            {profileUser.userPosts?.map((post) => (
+              <InProfileCardImage key={post.postid} src={post.image} />
+            ))}
+          </ProfileContentDetailBox>
         </ProfileLayoutContainer>
         <div></div>
       </ProfileLayoutWrapper>
@@ -171,7 +197,7 @@ const ProfileContentHeaderTextBox = styled.div`
   flex-grow: 2;
   flex-basis: 30px;
   flex-shrink: 1;
-
+  gap: 20px;
   font-size: 100%;
   min-width: 0;
   flex-direction: column;
@@ -189,7 +215,7 @@ const ProfileHeaderNicknameBox = styled.div`
   align-items: center;
   flex-direction: row;
   position: relative;
-  font-size: 100%;
+  font-size: 18px;
   color: rgb(38, 38, 38);
   gap: 20px;
   div {
@@ -240,10 +266,19 @@ const ProfileContentDetailBox = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-start;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 20px;
   align-items: stretch;
   min-height: 0;
   min-width: 0;
   display: flex;
+  flex-wrap: wrap;
   /* align-items: center; */
+`;
+
+const InProfileCardImage = styled.img`
+  object-fit: contain;
+  max-width: 400px;
+  min-width: 300px;
+  width: 100%;
 `;

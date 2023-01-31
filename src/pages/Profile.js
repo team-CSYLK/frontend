@@ -278,7 +278,7 @@ const ProfileContentDetailBox = styled.div`
 
 const InProfileCardImage = styled.img`
   object-fit: contain;
-  max-width: 400px;
+  max-width: 350px;
   min-width: 300px;
   width: 100%;
 `;

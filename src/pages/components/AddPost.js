@@ -164,6 +164,10 @@ const AddPost = () => {
     setPlace(curValue.replace(notPlace, ""));
   };
 
+  //세션에서 닉네임과 프로필사진 가져오기
+  const nickName = sessionStorage.getItem("nickname");
+  // console.log(nickName);
+  const myImg = sessionStorage.getItem("myimg");
   return (
     <>
       {!sendPost && (
@@ -361,8 +365,8 @@ const AddPost = () => {
                 </StLeft>
                 <StRight>
                   <StMyProfile>
-                    <StProfileImg />
-                    <StProfileNicknname></StProfileNicknname>
+                    <StProfileImg src={`${myImg}`} />
+                    <StProfileNicknname>{nickName}</StProfileNicknname>
                   </StMyProfile>
                   <StTextarea
                     type="text"

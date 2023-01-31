@@ -173,7 +173,7 @@ const CardImg = styled.img.attrs((props) => ({
   max-width: 800px;
   min-width: 400px;
   width: 100%;
-
+  border-radius: 5px;
   /* width: 500px;
   height: 300px; */
   /* border-radius: 20px; */
@@ -225,8 +225,8 @@ const CardFooterContent = styled.div`
   word-break: break-all; // 줄 바꿈 시키는 css
 `;
 const ProfileContentHeaderImageBox = styled.div`
-  margin-right: 20px;
-  margin-left: 10px;
+  margin-right: 10px;
+  margin-left: 5px;
   justify-content: center;
   flex-direction: column;
   display: flex;

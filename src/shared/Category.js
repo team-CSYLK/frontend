@@ -23,7 +23,8 @@ const Category = () => {
   };
   const nickName = sessionStorage.getItem("nickname");
   console.log(nickName);
-
+  const myImg = sessionStorage.getItem("myimg");
+  // console.log(myImg);
   return (
     <>
       <CategoryWrapper>
@@ -179,9 +180,9 @@ const Category = () => {
                   <div>
                     <CategoryInDiv>
                       <CategoryDbInDiv>
-                        <CategorySvg>
-                          {/* <span class="xnz67gz x14yjl9h xudhj91 x18nykt9 xww2gxu x9f619 x1lliihq x2lah0s x6ikm8r x10wlt62 x1n2onr6 x1ykvv32 xougopr x159fomc xnp5s1o x194ut8o x1vzenxt xd7ygy7 xt298gk x1xrz1ek x1s928wv x162n7g1 x2q1x1w x1j6awrg x1n449xj x1m1drc7" role="link" tabindex="-1" style="width: 24px; height: 24px;"><img alt="duroomee님의 프로필 사진" class="x6umtig x1b1mbwd xaqea5y xav7gou xk390pu x5yr21d xpdipgo xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x11njtxf xh8yej3" crossorigin="anonymous" draggable="false" src="https://instagram.ftpa1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.ftpa1-1.fna.fbcdn.net&amp;_nc_cat=1&amp;_nc_ohc=Wss0mqAzjA4AX9oEzty&amp;edm=AB11_MABAAAA&amp;ccb=7-5&amp;ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-5&amp;oh=00_AfDEtq5sVG0nH143f_oRqy5SELaNvc4vESNEXWd2OyCPSw&amp;oe=63D5D68F&amp;_nc_sid=ccd4cc"></span> */}
-                        </CategorySvg>
+                        <MyProfileImgSize>
+                          <MyProfileImg src={`${myImg}`} />
+                        </MyProfileImgSize>
                       </CategoryDbInDiv>
                     </CategoryInDiv>
                   </div>
@@ -391,4 +392,24 @@ const LogOutButton = styled.button`
     font-size: 10px;
     margin-left: 9px;
   }
+`;
+
+const MyProfileImgSize = styled.div`
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  box-sizing: border-box;
+  /* height: 100%; */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  height: 24px;
+  border-radius: 50%;
+  /* width: 150px; */
+`;
+
+const MyProfileImg = styled.img`
+  /* height: 150px; */
+  height: 100%;
+  object-fit: contain;
 `;

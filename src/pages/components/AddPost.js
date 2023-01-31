@@ -89,7 +89,7 @@ const AddPost = () => {
       place,
     };
 
-    // 이미지데이터
+    // 이미지데이터, 게시글내용, 위치
     formData.append("image", fileImg);
     formData.append("postContent", postContent);
     formData.append("place", place);
@@ -143,9 +143,9 @@ const AddPost = () => {
   const dragOverlayClass = dragOverlay ? "overlay" : "";
 
   const navigate = useNavigate();
-  const onGoBackMain = () => {
-    navigate("/main");
-  };
+  // const onGoBackMain = () => {
+  //   navigate("/main");
+  // };
 
   // next 버튼 눌렀을 때
   const [sendPost, setSendPost] = useState(false);
@@ -193,8 +193,11 @@ const AddPost = () => {
                   <StAddTitle className="_ac78" tabindex="-1">
                     <StTitleRow>
                       {/* 뒤로가기는 나중에 구현 */}
-                      <StGoBack onClick={onGoBackMain}>
-                        <svg
+                      <StGoBack
+                      // onClick={onGoBackMain}
+                      // style={{ display: "none" }}
+                      >
+                        {/* <svg
                           aria-label="돌아가기"
                           className="_ab6-"
                           height="24"
@@ -221,7 +224,7 @@ const AddPost = () => {
                             strokeLinejoin="round"
                             strokeWidth="2"
                           ></polyline>
-                        </svg>
+                        </svg> */}
                       </StGoBack>
 
                       <StAddText>새 게시물 만들기</StAddText>
@@ -341,7 +344,7 @@ const AddPost = () => {
                   </svg>
                 </StGoBack>
                 <StAddText>새 게시물 만들기</StAddText>
-                <StSend2>Upload</StSend2>
+                <StSend2 htmlFor="submit">Upload</StSend2>
               </StTitleRow2>
             </StAddTitle2>
             <StFormData
@@ -351,6 +354,13 @@ const AddPost = () => {
               target="_blank"
               onSubmit={onClickFormData}
             >
+              <StSubmitBtn
+                id="submit"
+                type="submit"
+                style={{ display: "none" }}
+              >
+                Upload
+              </StSubmitBtn>
               <StInputImg2>
                 <StLeft>
                   <StPrivew>
@@ -470,13 +480,6 @@ const StTitleRow = styled.div`
   justify-content: space-between;
   position: relative;
   right: 10px;
-`;
-const StGoBack = styled.button`
-  height: 24px;
-
-  cursor: pointer;
-  border: 0px;
-  background-color: transparent;
 `;
 
 const StAddText = styled.div`
@@ -611,8 +614,16 @@ const StTitleRow2 = styled.div`
   position: relative;
   right: 10px;
 `;
+// 뒤로가기버튼
+const StGoBack = styled.button`
+  height: 24px;
+
+  cursor: pointer;
+  border: 0px;
+  background-color: transparent;
+`;
 //Upload 버튼
-const StSend2 = styled.button`
+const StSend2 = styled.label`
   border: 0px;
   background-color: transparent;
   width: 24px;
@@ -622,7 +633,7 @@ const StSend2 = styled.button`
   color: blue;
   font-weight: 600;
 `;
-
+const StSubmitBtn = styled.button``;
 const StFormData = styled.form``;
 
 const StInputImg2 = styled.div`

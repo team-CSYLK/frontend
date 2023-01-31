@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 export const __addPostFormData = createAsyncThunk(
-  "postFormData",
+  "addPostFormData",
   async (payload, thunkAPI) => {
     console.log("payload=", payload);
 
@@ -20,7 +20,7 @@ export const __addPostFormData = createAsyncThunk(
       .post(
         // `${serverUrl}/posts`,
         //"http://prachang.shop/api/users/",
-        "localhost:3001/addPostLists",
+        "http://becool0514.shop/posts",
         payload,
         {
           headers: {
@@ -32,9 +32,12 @@ export const __addPostFormData = createAsyncThunk(
         },
         console.log("payload", payload),
       )
-      .then((result) => {
+      .then((res) => {
+        // console.log(res.headers.authorization);
+        sessionStorage.setItem("authorization", res.headers.authorization);
+        //   sessionStorage.setItem("refreshToken", res.data.refreshToken);
         console.log("요청성공");
-        console.log(result);
+        return res;
       })
       .catch((error) => {
         console.log("요청실패");

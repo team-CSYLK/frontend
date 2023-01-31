@@ -21,7 +21,6 @@ const Router = () => {
           <Route path="/SignNick" element={<SingNick />} />
           <Route path="/KaKaoLogin" element={<KakaoLogin />} />
           <Route path="/Main" element={<Main />} />
-          {/* <Route path="/addpost2" element={<AddPost2 />} /> */}
           <Route path="/Profile" element={<Profile />} />
           {/* todo  :  propfile 주소 바껴야함 */}
           <Route path="/Edit" element={<EditProfile />} />

@@ -51,13 +51,13 @@ const AddPost = () => {
 
   // 파일첨부 기능
   //미리보기
-  const [imageSrc, setImageSrc] = useState();
+  const [image, setImage] = useState();
   const encodeFileToBase64 = async (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImageSrc(reader.result);
+        setImage(reader.result);
         resolve();
         console.log("setImage", reader.result);
       };
@@ -84,16 +84,23 @@ const AddPost = () => {
     e.preventDefault();
 
     const newList = {
-      imageSrc,
+      image,
+      postContent,
+      place,
     };
 
-    // 이미지데이터
+    // 이미지데이터, 게시글내용, 위치
     formData.append("image", fileImg);
+    formData.append("postContent", postContent);
+    formData.append("place", place);
+
     for (const form of formData) {
       console.log("form최종", form);
     }
 
     dispatch(__addPostFormData(formData));
+    alert("업로드성공");
+    navigate("/main");
   };
   //드래그앤드롭 기능 // DragZone이라는 라이브러리가 있음(참고)
   let [dragOverlay, setDragOverlay] = useState(false);
@@ -129,26 +136,44 @@ const AddPost = () => {
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = (loadEvt) => {
-      setImageSrc(loadEvt.target.result);
+      setImage(loadEvt.target.result);
     };
   };
 
   const dragOverlayClass = dragOverlay ? "overlay" : "";
 
   const navigate = useNavigate();
-  const onGoBackMain = () => {
-    navigate("/main");
-  };
+  // const onGoBackMain = () => {
+  //   navigate("/main");
+  // };
 
   // next 버튼 눌렀을 때
   const [sendPost, setSendPost] = useState(false);
-  const onChangePost = () => {
-    setSendPost(!sendPost);
+  const onChangePost = (imageSrc) => {
+    if (imageSrc) {
+      setSendPost(!sendPost);
+    } else {
+      alert("이미지를 넣어주세요");
+    }
   };
 
-  const [inputPostContent, setInputPostContent] = useState("");
+  // textarea  상태
+  const [postContent, setPostContent] = useState("");
+  //글자수 세기
   const onTextarea = (e) => {
-    setInputPostContent(e.target.value);
+    setPostContent(e.target.value);
+  };
+
+  // 위치 상태
+  const [place, setPlace] = useState("");
+
+  // 위치 입력 숫자, 특수문자제외 유효성
+  const onInputPlace = (e) => {
+    //e.preventDefault();
+    const curValue = e.currentTarget.value;
+    const notPlace = /[~!@#$%";'^,&*()_+|</>=>`?:{[\\}0-9]/g;
+    setPlace(curValue.replace(notPlace, ""));
+    console.log("최종유효", place);
   };
 
   return (
@@ -168,8 +193,11 @@ const AddPost = () => {
                   <StAddTitle className="_ac78" tabindex="-1">
                     <StTitleRow>
                       {/* 뒤로가기는 나중에 구현 */}
-                      <StGoBack onClick={onGoBackMain}>
-                        <svg
+                      <StGoBack
+                      // onClick={onGoBackMain}
+                      // style={{ display: "none" }}
+                      >
+                        {/* <svg
                           aria-label="돌아가기"
                           className="_ab6-"
                           height="24"
@@ -196,7 +224,7 @@ const AddPost = () => {
                             strokeLinejoin="round"
                             strokeWidth="2"
                           ></polyline>
-                        </svg>
+                        </svg> */}
                       </StGoBack>
 
                       <StAddText>새 게시물 만들기</StAddText>
@@ -210,17 +238,16 @@ const AddPost = () => {
                     onDragLeave={handleDragOut}
                     onDragOver={handleDrag}
                     onDrop={handleDrop}
-                    style={{ backgroundColor: "#FFFAFA" }}
                   >
                     <StInputImg className="x15wfb8v x3aagtl x6ql1ns x1iyjqo2 xs83m0k xdl72j9 xqbdwvv x1cwzgcd">
                       <StForm
                         enctype="multipart/form-data"
                         method="POST"
                         role="presentation"
-                        onSubmit={onClickFormData}
+                        //onSubmit={onClickFormData}
                       >
                         {/* 이미지넣는 아이콘 */}
-                        {!imageSrc && (
+                        {!image && (
                           <StSvg
                             aria-label="이미지나 동영상과 같은 미디어를 나타내는 아이콘"
                             className="_ab6-"
@@ -247,9 +274,7 @@ const AddPost = () => {
                         <StClickImg>
                           {/* 버튼클릭시 이미지 미리보기 */}
                           <StPrivew>
-                            {imageSrc && (
-                              <StImg src={imageSrc} alt="preview-img" />
-                            )}
+                            {image && <StImg src={image} alt="preview-img" />}
                           </StPrivew>
 
                           <StInput
@@ -261,7 +286,7 @@ const AddPost = () => {
                             style={{ display: "none" }}
                             onChange={onChangeFile}
                           />
-                          {!imageSrc && (
+                          {!image && (
                             <StBlueBtn
                               htmlFor="preview"
                               className="_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p _ab9x _aba7 _abcm"
@@ -271,7 +296,7 @@ const AddPost = () => {
                           )}
                         </StClickImg>
 
-                        {!imageSrc && (
+                        {!image && (
                           <Stdiv>사진과 동영상을 여기에 끌어다 놓으세요</Stdiv>
                         )}
                       </StForm>
@@ -319,13 +344,28 @@ const AddPost = () => {
                   </svg>
                 </StGoBack>
                 <StAddText>새 게시물 만들기</StAddText>
-                <StSend2>Upload</StSend2>
+                <StSend2 htmlFor="submit">Upload</StSend2>
               </StTitleRow2>
             </StAddTitle2>
-            <StFormData>
+            <StFormData
+              method="post"
+              action="uploadForm"
+              enctype="multipary/form-data"
+              target="_blank"
+              onSubmit={onClickFormData}
+            >
+              <StSubmitBtn
+                id="submit"
+                type="submit"
+                style={{ display: "none" }}
+              >
+                Upload
+              </StSubmitBtn>
               <StInputImg2>
                 <StLeft>
-                  <StImg src={imageSrc} alt="preview-img" />
+                  <StPrivew>
+                    <StImg2 src={image} alt="preview-img" />
+                  </StPrivew>
                 </StLeft>
                 <StRight>
                   <StMyProfile>
@@ -335,14 +375,14 @@ const AddPost = () => {
                   <StTextarea
                     type="text"
                     placeholder="문구입력..."
-                    value={inputPostContent}
+                    value={postContent}
                     onChange={onTextarea}
                     maxLength="2200"
                   />
                   <StEmojiRow>
                     <StSvgEmoji
                       aria-label="이모티콘"
-                      class="_ab6-"
+                      className="_ab6-"
                       color="#8e8e8e"
                       fill="#8e8e8e"
                       height="20"
@@ -353,15 +393,18 @@ const AddPost = () => {
                       <path d="M15.83 10.997a1.167 1.167 0 1 0 1.167 1.167 1.167 1.167 0 0 0-1.167-1.167Zm-6.5 1.167a1.167 1.167 0 1 0-1.166 1.167 1.167 1.167 0 0 0 1.166-1.167Zm5.163 3.24a3.406 3.406 0 0 1-4.982.007 1 1 0 1 0-1.557 1.256 5.397 5.397 0 0 0 8.09 0 1 1 0 0 0-1.55-1.263ZM12 .503a11.5 11.5 0 1 0 11.5 11.5A11.513 11.513 0 0 0 12 .503Zm0 21a9.5 9.5 0 1 1 9.5-9.5 9.51 9.51 0 0 1-9.5 9.5Z"></path>
                     </StSvgEmoji>
                     <StTextCount>
-                      <span>{inputPostContent.length}</span> / 2200
+                      <span>{postContent.length}</span> / 2200
                     </StTextCount>
                   </StEmojiRow>
                   <StLoca>
-                    <input
+                    <StLocaInput
                       style={{ border: "0px" }}
                       placeholder="위치 추가"
                       type="text"
                       height="24"
+                      width="130"
+                      value={place}
+                      onChange={onInputPlace}
                     />
 
                     <StLocaSvg height="24" width="24">
@@ -410,7 +453,7 @@ const StBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  border: 1px solid gray;
+  //border: 1px solid gray;
   border-radius: 20px;
   height: 550px;
   width: 500px;
@@ -418,6 +461,7 @@ const StBox = styled.div`
   min-width: 428px;
   min-height: 340px;
   max-height: 620px;
+  box-shadow: 1px 2px 4px 1px #dcdcdc;
 `;
 const StAddTitle = styled.div`
   height: 50px;
@@ -426,7 +470,7 @@ const StAddTitle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #a9a9a9;
 `;
 const StTitleRow = styled.div`
   width: 460px;
@@ -436,13 +480,6 @@ const StTitleRow = styled.div`
   justify-content: space-between;
   position: relative;
   right: 10px;
-`;
-const StGoBack = styled.button`
-  height: 24px;
-
-  cursor: pointer;
-  border: 0px;
-  background-color: transparent;
 `;
 
 const StAddText = styled.div`
@@ -465,7 +502,7 @@ const StSend = styled.button`
 
 const StInputImg = styled.div`
   height: 500px;
-  width: 499px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -494,6 +531,8 @@ const StBlueBtn = styled.label`
   border-radius: 20px;
   color: white;
   font-size: 14px;
+  position: relative;
+  top: 20px;
 
   padding: 10px 20px;
   z-index: 9;
@@ -515,9 +554,18 @@ const Stdiv = styled.div`
 `;
 const StDnDContainer = styled.div`
   border-radius: 20px;
+  object-fit: cover;
+  background-color: #fffafa;
+  border-radius: 0px 0px 20px 20px;
+  overflow: hidden;
 `;
-const StPrivew = styled.div``;
+const StPrivew = styled.div`
+  border-radius: 20px;
+`;
 const StImg = styled.img`
+  position: relative;
+  top: 2px;
+
   width: auto;
   height: auto;
   max-width: 500px;
@@ -542,13 +590,14 @@ const StBox2 = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid gray;
-  border-radius: 10px;
+  //border: 1px solid gray;
+  border-radius: 20px;
+  box-shadow: 1px 2px 4px 1px #dcdcdc;
 `;
 const StAddTitle2 = styled.div`
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #a9a9a9;
 
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 20px 20px 0px 0px;
   height: 50px;
   width: 800px;
   display: flex;
@@ -565,8 +614,16 @@ const StTitleRow2 = styled.div`
   position: relative;
   right: 10px;
 `;
+// 뒤로가기버튼
+const StGoBack = styled.button`
+  height: 24px;
+
+  cursor: pointer;
+  border: 0px;
+  background-color: transparent;
+`;
 //Upload 버튼
-const StSend2 = styled.button`
+const StSend2 = styled.label`
   border: 0px;
   background-color: transparent;
   width: 24px;
@@ -576,7 +633,7 @@ const StSend2 = styled.button`
   color: blue;
   font-weight: 600;
 `;
-
+const StSubmitBtn = styled.button``;
 const StFormData = styled.form``;
 
 const StInputImg2 = styled.div`
@@ -592,16 +649,27 @@ const StLeft = styled.div`
   width: 500px;
   height: 500px;
   background-color: #fffafa;
-  border-right: 1px solid gray;
-  border-radius: 0px 0px 0px 10px;
+  border-right: 1px solid #a9a9a9;
+  border-radius: 0px 0px 0px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+const StImg2 = styled.img`
+  position: relative;
+  top: 3px;
+  border-radius: 0px 0px 0px 20px;
+  width: auto;
+  height: auto;
+  max-width: 500px;
+  max-height: 500px;
+  object-fit: cover;
 `;
 const StRight = styled.div`
   width: 300px;
   height: 500px;
 `;
+
 const StMyProfile = styled.div`
   margin: 6px;
   display: flex;
@@ -636,6 +704,7 @@ const StSvgEmoji = styled.svg`
 `;
 const StTextCount = styled.div`
   color: #d3d3d3;
+  font-size: 13px; ;
 `;
 const StLoca = styled.label`
   width: 286px;
@@ -648,6 +717,9 @@ const StLoca = styled.label`
   flex-direction: row;
   justify-content: space-between;
   margin: 6px;
+`;
+const StLocaInput = styled.input`
+  width: 130px;
 `;
 const StLocaSvg = styled.svg`
   scale: 90%;

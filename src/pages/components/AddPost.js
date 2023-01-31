@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import { useNavigate } from "react-router-dom";
@@ -164,6 +164,10 @@ const AddPost = () => {
     setPlace(curValue.replace(notPlace, ""));
   };
 
+  // useEffect(() => {
+  //   setName(editProfiles.name);
+  //   setNickname(editProfiles.nickname);
+  // }, [editProfiles]);
   return (
     <>
       {!sendPost && (
@@ -361,8 +365,10 @@ const AddPost = () => {
                 </StLeft>
                 <StRight>
                   <StMyProfile>
-                    <StProfileImg />
-                    <StProfileNicknname></StProfileNicknname>
+                    <StProfileImg src={editProfiles.imageProfile} />
+                    <StProfileNicknname>
+                      {editProfiles?.nickname}
+                    </StProfileNicknname>
                   </StMyProfile>
                   <StTextarea
                     type="text"

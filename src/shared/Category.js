@@ -16,6 +16,11 @@ const Category = () => {
   if (locationNow.pathname === "/SignNick") return null;
   if (locationNow.pathname === "/signnick") return null;
   if (locationNow.pathname === "/kakaologin") return null;
+  const logOut = () => {
+    sessionStorage.clear();
+    // dispatch(checkLogout());
+    window.location.href = "/";
+  };
 
   return (
     <>
@@ -184,7 +189,9 @@ const Category = () => {
             </CategoryEachBox>
           </CategoryBox>
         </CategoryOutBox>
+        <LogOutButton onClick={logOut}> 로그아웃</LogOutButton>
       </CategoryWrapper>
+
       <ReactModal
         style={{
           content: {
@@ -357,4 +364,25 @@ const CategoryEachWord = styled.div`
 const CategorySvg = styled.svg`
   display: block;
   position: relative;
+`;
+
+const LogOutButton = styled.button`
+  margin-left: 60px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(38, 38, 38);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  @media screen and (max-width: 900px) {
+    font-size: 10px;
+    margin-left: 9px;
+  }
 `;

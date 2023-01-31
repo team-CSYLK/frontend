@@ -113,12 +113,7 @@ const KakaoLogin = () => {
     dispatch(__postLogin({ code: KAKAO_CODE }));
   }, [dispatch]);
 
-  return (
-    <div>
-      kakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLogin
-      {/* <button onClick={getKakaoToken}>버튼</button> */}
-    </div>
-  );
+  return <div>kakaoLogin에 실패하면 뜨는 페이지</div>;
 };
 
 export default KakaoLogin;

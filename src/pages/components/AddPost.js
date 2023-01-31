@@ -2,11 +2,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import get from "lodash/get";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import addPostSlice, {
-  __addPostFormData,
-} from "../../redux/modules/addPostSlice";
-import AddPost2 from "./AddPost2";
+import { useDispatch, useSelector } from "react-redux";
+import { __addPostFormData } from "../../redux/modules/addPostSlice";
 
 const config = {
   allowedFileFormats: ["image/jpeg", "image/jpg", "image/png"],
@@ -46,20 +43,21 @@ export const preventBrowserDefaults = (e) => {
 };
 
 const AddPost = () => {
-  // 여기에다가 AddPost2를 함수 적용시켜서 하기.
   const dispatch = useDispatch();
+  const { editProfiles } = useSelector((state) => state.editSlice);
+  const [nickname, setNickname] = useState(editProfiles?.nickname);
 
   // 파일첨부 기능
   //미리보기
-  const [image, setImage] = useState();
+  const [imageUrl, setImageUrl] = useState();
   const encodeFileToBase64 = async (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImage(reader.result);
+        setImageUrl(reader.result);
         resolve();
-        console.log("setImage", reader.result);
+        console.log("setImageUrl", reader.result);
       };
     });
   };
@@ -75,32 +73,30 @@ const AddPost = () => {
     console.log("이미지파일전송", formImg);
     formData.append("file", formImg);
     //콘솔찍어보기
-    for (const key of formData.keys()) {
-      console.log("key", key);
-    }
+    // for (const key of formData.keys()) {
+    //   console.log("key", key);
+    // }
   };
 
   const onClickFormData = (e) => {
     e.preventDefault();
 
     const newList = {
-      image,
+      imageUrl,
       postContent,
       place,
     };
 
     // 이미지데이터, 게시글내용, 위치
-    formData.append("image", fileImg);
+    formData.append("imageUrl", fileImg);
     formData.append("postContent", postContent);
     formData.append("place", place);
 
-    for (const form of formData) {
-      console.log("form최종", form);
-    }
+    // for (const form of formData) {
+    //   console.log("form최종", form);
+    // }
 
     dispatch(__addPostFormData(formData));
-    alert("업로드성공");
-    navigate("/main");
   };
   //드래그앤드롭 기능 // DragZone이라는 라이브러리가 있음(참고)
   let [dragOverlay, setDragOverlay] = useState(false);
@@ -136,24 +132,17 @@ const AddPost = () => {
     const reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = (loadEvt) => {
-      setImage(loadEvt.target.result);
+      setImageUrl(loadEvt.target.result);
     };
   };
 
   const dragOverlayClass = dragOverlay ? "overlay" : "";
 
-  const navigate = useNavigate();
-  // const onGoBackMain = () => {
-  //   navigate("/main");
-  // };
-
   // next 버튼 눌렀을 때
   const [sendPost, setSendPost] = useState(false);
-  const onChangePost = (imageSrc) => {
-    if (imageSrc) {
+  const onChangePost = (imageUrl) => {
+    if (imageUrl) {
       setSendPost(!sendPost);
-    } else {
-      alert("이미지를 넣어주세요");
     }
   };
 
@@ -173,7 +162,6 @@ const AddPost = () => {
     const curValue = e.currentTarget.value;
     const notPlace = /[~!@#$%";'^,&*()_+|</>=>`?:{[\\}0-9]/g;
     setPlace(curValue.replace(notPlace, ""));
-    console.log("최종유효", place);
   };
 
   return (
@@ -228,7 +216,9 @@ const AddPost = () => {
                       </StGoBack>
 
                       <StAddText>새 게시물 만들기</StAddText>
-                      <StSend onClick={onChangePost}>Next</StSend>
+                      <StSend onClick={onChangePost} disabled={!imageUrl}>
+                        Next
+                      </StSend>
                     </StTitleRow>
                   </StAddTitle>
                   {/* 파일첨부버튼이랑  */}
@@ -247,7 +237,7 @@ const AddPost = () => {
                         //onSubmit={onClickFormData}
                       >
                         {/* 이미지넣는 아이콘 */}
-                        {!image && (
+                        {!imageUrl && (
                           <StSvg
                             aria-label="이미지나 동영상과 같은 미디어를 나타내는 아이콘"
                             className="_ab6-"
@@ -274,7 +264,9 @@ const AddPost = () => {
                         <StClickImg>
                           {/* 버튼클릭시 이미지 미리보기 */}
                           <StPrivew>
-                            {image && <StImg src={image} alt="preview-img" />}
+                            {imageUrl && (
+                              <StImg src={imageUrl} alt="preview-img" />
+                            )}
                           </StPrivew>
 
                           <StInput
@@ -286,7 +278,7 @@ const AddPost = () => {
                             style={{ display: "none" }}
                             onChange={onChangeFile}
                           />
-                          {!image && (
+                          {!imageUrl && (
                             <StBlueBtn
                               htmlFor="preview"
                               className="_ab8w  _ab94 _ab99 _ab9f _ab9m _ab9p _ab9x _aba7 _abcm"
@@ -296,7 +288,7 @@ const AddPost = () => {
                           )}
                         </StClickImg>
 
-                        {!image && (
+                        {!imageUrl && (
                           <Stdiv>사진과 동영상을 여기에 끌어다 놓으세요</Stdiv>
                         )}
                       </StForm>
@@ -364,13 +356,13 @@ const AddPost = () => {
               <StInputImg2>
                 <StLeft>
                   <StPrivew>
-                    <StImg2 src={image} alt="preview-img" />
+                    <StImg2 src={imageUrl} alt="preview-img" />
                   </StPrivew>
                 </StLeft>
                 <StRight>
                   <StMyProfile>
                     <StProfileImg />
-                    <StProfileNicknname>user nickname</StProfileNicknname>
+                    <StProfileNicknname></StProfileNicknname>
                   </StMyProfile>
                   <StTextarea
                     type="text"
@@ -496,6 +488,11 @@ const StSend = styled.button`
   width: 24px;
   height: 24px;
   cursor: pointer;
+  :disabled {
+    cursor: default;
+    opacity: 0.3;
+    color: black;
+  }
   color: blue;
   font-weight: 600;
 `;
@@ -654,11 +651,12 @@ const StLeft = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 const StImg2 = styled.img`
   position: relative;
   top: 3px;
-  border-radius: 0px 0px 0px 20px;
+  /* border-radius: 0px 0px 0px 20px; */
   width: auto;
   height: auto;
   max-width: 500px;

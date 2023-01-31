@@ -7,8 +7,6 @@ const axiosInstance = axios.create({
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
   },
-  // headers: { "X-Custom-Header": "foobar" },
-  //   Authorization :  ////token 넣음
 });
 //TODO: 서버랑 비교하고 수정하기.
 

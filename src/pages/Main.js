@@ -1,8 +1,65 @@
 import React from "react";
 import styled from "styled-components";
 import MainCard from "../components/MainCard";
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __getPost } from "../redux/modules/postsSlice";
 const Main = () => {
+  const dispatch = useDispatch();
+  // // 서버에서 받아오는것
+  const { list } = useSelector((state) => state.post);
+  const lists = list.data;
+  // console.log(lists, "main에서 내려주는 좋아요 상태");
+  // 임시 데이터
+  // const lists = [
+  //   {
+  //     postId: 2,
+  //     userId: 1,
+  //     nickname: "김동동",
+  //     imageProfile:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg",
+  //     imageUrl:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png",
+  //     postContent: "오늘 여기서 밥을 먹었다",
+  //     likes: 22,
+  //     isLiked: true,
+  //     place: "경리단",
+  //     createdAt: "1분전",
+  //   },
+  //   {
+  //     postId: 3,
+  //     userId: 1,
+  //     nickname: "김동동",
+  //     imageProfile:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg",
+  //     imageUrl:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png",
+  //     postContent: "오늘 여기서 bob을 먹었다",
+  //     likes: 22,
+  //     isLiked: true,
+  //     place: "경리단",
+  //     createdAt: "10분전",
+  //   },
+  //   {
+  //     postId: 4,
+  //     userId: 1,
+  //     nickname: "김동동",
+  //     imageProfile:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg",
+  //     imageUrl:
+  //       "https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png",
+  //     postContent: "오늘 여기서 죽었다",
+  //     likes: 22,
+  //     isLiked: true,
+  //     place: "경리단",
+  //     createdAt: "20분전",
+  //   },
+  // ];
+
+  useEffect(() => {
+    dispatch(__getPost());
+  }, [dispatch]);
+
   return (
     <>
       <MainLayoutWrapper>
@@ -10,15 +67,9 @@ const Main = () => {
           <MainLayoutSection>
             <MainDetailWrapper>
               <MainDetailContainer>
-                {/* TODO: 여기다 맵 돌릴 것 */}
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
-                <MainCard />
+                {lists?.map((post) => (
+                  <MainCard key={post.postId} post={post} />
+                ))}
               </MainDetailContainer>
             </MainDetailWrapper>
           </MainLayoutSection>

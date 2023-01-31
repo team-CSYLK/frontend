@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../api/axiosInstance";
+import AxiosInstance from "../../api/AxiosInstance";
 const initialState = {
   loginList: [],
   isLogin: false,
@@ -13,12 +13,12 @@ const initialState = {
 export const __postLogin = createAsyncThunk(
   "POST_LOGIN",
   async (payload, thunkAPI) => {
-    // console.log(payload, " 썽크로 들어오나?");
+    console.log(payload, " 썽크로 들어오나?");
     try {
       const data = await axios
         .post("http://becool0514.shop/kakao/code", payload)
         .then((res) => {
-          // console.log(res.headers.authorization);
+          console.log(res.headers.authorization);
           sessionStorage.setItem("authorization", res.headers.authorization);
           //   sessionStorage.setItem("refreshToken", res.data.refreshToken);
           return res;
@@ -50,11 +50,11 @@ export const __addNick = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload, " 썽크로 들어오나?");
     try {
-      const data = await axiosInstance
-        .post("/sendNickname", payload)
-        .then((res) => {
+      const data = await AxiosInstance.post("/sendNickname", payload).then(
+        (res) => {
           return res;
-        });
+        }
+      );
       if (data.status === 200) {
         sessionStorage.setItem("nickname", payload.nickname);
         window.location.href = "/Main";

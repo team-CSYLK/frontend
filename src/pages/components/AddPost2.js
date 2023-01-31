@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import AddPost from "./AddPost";
 
 const AddPost2 = () => {
+  const onChangeText = () => {};
+
+  //서버로 보내기,
+  const onSavePost = () => {};
+
   return (
     <>
       <StLayout>
         <StBox>
           <StTitleBox>
-            <button>뒤로</button>새 게시물 만들기 <button>공유하기</button>
+            <button>뒤로</button>새 게시물 만들기{" "}
+            <button onClick={onSavePost}>공유하기</button>
           </StTitleBox>
-          <StInputImg>
-            <StLeft>아까 넣은 이미지</StLeft>
-            <StRight>
-              <StMyProfile>내 프로필자리</StMyProfile>
-              <StText placeholder="text" />
-              <StLoca>위치추가</StLoca>
-            </StRight>
-          </StInputImg>
+          <StFormData>
+            <StInputImg>
+              <StLeft></StLeft>
+              <StRight>
+                <StMyProfile>내 프로필자리</StMyProfile>
+                <StText
+                  placeholder="text"
+                  method="post"
+                  action="uploadForm"
+                  onChange={onChangeText}
+                />
+                <StLoca>위치추가 아직은 무리입니다.ㅜㅜ</StLoca>
+              </StRight>
+            </StInputImg>
+          </StFormData>
         </StBox>
       </StLayout>
     </>
@@ -54,6 +68,8 @@ const StTitleBox = styled.div`
   border: 1px solid gray;
   border-radius: 10px 10px 0px 0px;
 `;
+const StFormData = styled.form``;
+
 const StInputImg = styled.div`
   width: 800px;
   height: 550px;

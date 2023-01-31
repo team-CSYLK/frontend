@@ -1,16 +1,32 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __addNick } from "../redux/modules/loginSlice";
 export const SingNick = () => {
   const dispatch = useDispatch();
-  const nickInput = useRef();
+  //닉네임 스테이트 형성
+  const [nickInput, setNickInput] = useState("");
+  const [nickName, setNickName] = useState("");
+  //유효성 검사 영어 숫자로 이루어진 3글자 이상
+  const regNick = /^[a-zA-Z0-9]{3,}$/;
+
+  // 유효성 검사 및 유즈스테이트 작성
+  const onChangeNick = (e) => {
+    setNickName(e.target.value);
+
+    !regNick.test(e.target.value)
+      ? setNickInput("3글자 이상의 영어 숫자로만 이루어진 닉네임")
+      : setNickInput("");
+  };
+
+  //입력받은 닉네임 서버에 보내기
   const onAddNickHandler = (event) => {
+    console.log(nickInput);
     event.preventDefault();
-    if (nickInput.current.value.trim() === "") {
+    if (nickName.trim() === "") {
       return alert("닉네임을 입력해주세요.");
     }
-    dispatch(__addNick({ nickname: nickInput.current.value }));
+    dispatch(__addNick({ nickname: nickName }));
   };
 
   return (
@@ -34,10 +50,17 @@ export const SingNick = () => {
             maxLength="11"
             placeholder="11글자까지 가능합니다"
             type="text"
-            ref={nickInput}
+            name="nickName"
+            value={nickName}
+            onChange={onChangeNick}
           />
-          <StSignNickButton onClick={onAddNickHandler}>
-            {" "}
+          <HelperText id="help-nickName" className="help">
+            {nickInput}
+          </HelperText>
+          <StSignNickButton
+            disabled={!regNick.test(nickName)}
+            onClick={onAddNickHandler}
+          >
             닉네임 입력
           </StSignNickButton>
         </StRight>
@@ -140,4 +163,14 @@ const StSignNickButton = styled.button`
   box-shadow: 1px 2px 4px 1px #dcdcdc;
   cursor: pointer;
   font-weight: 600;
+  :disabled {
+    cursor: default;
+  }
+`;
+
+const HelperText = styled.pre`
+  display: flex;
+  justify-content: center;
+  font-size: smaller;
+  color: red;
 `;

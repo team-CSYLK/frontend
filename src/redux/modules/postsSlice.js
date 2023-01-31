@@ -11,10 +11,29 @@ const initialState = {
 export const __getPost = createAsyncThunk(
   "GET_POST",
   async (payload, thunkAPI) => {
+    // console.log("get 실행하는가?");
     try {
       const data = await AxiosInstance.get("/posts");
-      console.log(data);
+      // console.log(data);
+      if (data.status === 204) {
+        // alert("로그인 성공");
+        // console.log("기능");
+      }
       return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editLikeness = createAsyncThunk(
+  "EDIT_LIKENESS",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await AxiosInstance.put(`/posts/like/${payload}`);
+
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -40,6 +59,15 @@ export const postsSlice = createSlice({
     },
     [__getPost.pending]: (state) => {
       state.isLoading = true;
+    },
+    [__editLikeness.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__editLikeness.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [__editLikeness.rejected]: (state, action) => {
+      state.isLoading = false;
     },
   },
 });

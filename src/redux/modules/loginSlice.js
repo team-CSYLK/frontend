@@ -13,25 +13,32 @@ const initialState = {
 export const __postLogin = createAsyncThunk(
   "POST_LOGIN",
   async (payload, thunkAPI) => {
-    console.log(payload, " 썽크로 들어오나?");
+    // console.log(payload, " 썽크로 들어오나?");
     try {
       const data = await axios
         .post("http://becool0514.shop/kakao/code", payload)
         .then((res) => {
-          console.log(res.headers.authorization);
+          // console.log(res.headers.authorization);
           sessionStorage.setItem("authorization", res.headers.authorization);
           //   sessionStorage.setItem("refreshToken", res.data.refreshToken);
           return res;
         });
+
       if (data.status === 200) {
+        // console.log(data.data);
+        // console.log(data.data.nickname);
+        // console.log(data.data.imageUrl);
+
         // alert("로그인 성공");
         // console.log(data);
         // console.log(data.data);
         // console.log(data.data.nickname);
-        if (data.data === "") {
+        if (data.data.nickname === "") {
+          // 닉네임을 입력 못 받았다면 닉네임 입력페이지
           window.location.href = "/SignNick";
         } else {
-          sessionStorage.setItem("nickname", data.data);
+          sessionStorage.setItem("nickname", data.data.nickname);
+          sessionStorage.setItem("myimg", data.data.imageUrl);
           window.location.href = "/Main";
         }
       }

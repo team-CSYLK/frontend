@@ -51,7 +51,9 @@ export const postsSlice = createSlice({
   extraReducers: {
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.list = action.payload;
+      state.list = action.payload.data;
+      console.log(action.payload.data);
+      // list에 어떻게 저장되는지 보기
     },
     [__getPost.rejected]: (state, action) => {
       state.isLoading = false;

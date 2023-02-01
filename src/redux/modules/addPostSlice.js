@@ -28,7 +28,6 @@ export const __addPostFormData = createAsyncThunk(
             "Content-Type": "multipart/form-data",
           },
         },
-        console.log("payload", payload),
       )
       .then((res) => {
         // sessionStorage.setItem("authorization", res.headers.authorization);

@@ -6,6 +6,8 @@ import {
   __putEditFormData,
 } from "../redux/modules/editSlice";
 import { useDispatch, useSelector } from "react-redux";
+import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import ReactModal from "react-modal";
 
 const config = {
   allowedFileFormats: ["image/jpeg", "image/jpg", "image/png"],
@@ -42,7 +44,8 @@ export const fileValidator = (files, config) => {
 const EditProfile = () => {
   // 서버에서 데이터 가져올때
   const { editProfiles } = useSelector((state) => state.editSlice);
-  const [name, setName] = useState(editProfiles?.name);
+  // 여기서 문제 발생
+  const [name, setName] = useState(editProfiles.name);
 
   console.log("name", name);
   const onSetName = (e) => {
@@ -55,15 +58,14 @@ const EditProfile = () => {
   };
 
   //편집 미리보기
-  const [imageUrl, setImageUrl] = useState(false);
+  const [imageProfile, setImageProfile] = useState(false);
   const profileImgToBase64 = async (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImageUrl(reader.result);
+        setImageProfile(reader.result);
         resolve();
-        //console.log("setImageUrl", reader.result);
       };
     });
   };
@@ -85,7 +87,7 @@ const EditProfile = () => {
   };
 
   // 소개 상태
-  const [introduce, setIntroduce] = useState(editProfiles?.introduce);
+  const [introduce, setIntroduce] = useState("");
 
   //소개 글자수세기
   const onTextarea = (e) => {
@@ -97,14 +99,14 @@ const EditProfile = () => {
     e.preventDefault();
 
     const newList = {
-      imageUrl,
+      imageProfile,
       introduce,
       nickname,
       name,
     };
 
     // 이미지데이터, 게시글내용, 위치
-    formData.append("imageUrl", fileImg);
+    formData.append("imageProfile", fileImg);
     formData.append("introduce", introduce);
     formData.append("nickname", nickname);
     formData.append("name", name);
@@ -115,10 +117,16 @@ const EditProfile = () => {
 
     dispatch(__putEditFormData(formData));
   };
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   useEffect(() => {
     dispatch(__getEditFormData());
   }, [dispatch]);
+  useEffect(() => {
+    setName(editProfiles.name);
+    setNickname(editProfiles.nickname);
+    setIntroduce(editProfiles.introduce || "");
+  }, [editProfiles]);
+  //의존성 배열 dependency array
 
   return (
     <StEditBox>
@@ -128,9 +136,9 @@ const EditProfile = () => {
           <StProfile>
             <StProfImg>
               {fileImg ? (
-                <StImg src={imageUrl} />
+                <StImg src={imageProfile} alt="new 프로필 이미지" />
               ) : (
-                <StImg src={editProfiles?.imageUrl} alt="프로필 이미지" />
+                <StImg src={editProfiles?.imageProfile} alt="프로필 이미지" />
               )}
             </StProfImg>
             <StProfInfo>
@@ -153,6 +161,7 @@ const EditProfile = () => {
           <StInputData>
             <StContent>
               <StFirst>name</StFirst>
+
               <StSecond>
                 <StName value={name} onChange={onSetName}></StName>
               </StSecond>
@@ -164,6 +173,7 @@ const EditProfile = () => {
                   value={nickname}
                   onChange={onSetNickame}
                 ></StNickname>
+                <StP> * 영어, 숫자 3글자 이상</StP>
               </StSecond2>
             </StContent>
 
@@ -179,9 +189,25 @@ const EditProfile = () => {
                     {editProfiles?.introduce}
                   </StTextarea>
                   <br />
-                  <StTextCount>
-                    <span id="byteInfo">{introduce?.length}</span> / 50
-                  </StTextCount>
+                  <StEmojiRow>
+                    <StSvgEmoji
+                      aria-label="이모티콘"
+                      className="_ab6-"
+                      color="#8e8e8e"
+                      fill="#8e8e8e"
+                      height="20"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="20"
+                      onClick={() => setModalIsOpen(true)}
+                    >
+                      <path d="M15.83 10.997a1.167 1.167 0 1 0 1.167 1.167 1.167 1.167 0 0 0-1.167-1.167Zm-6.5 1.167a1.167 1.167 0 1 0-1.166 1.167 1.167 1.167 0 0 0 1.166-1.167Zm5.163 3.24a3.406 3.406 0 0 1-4.982.007 1 1 0 1 0-1.557 1.256 5.397 5.397 0 0 0 8.09 0 1 1 0 0 0-1.55-1.263ZM12 .503a11.5 11.5 0 1 0 11.5 11.5A11.513 11.513 0 0 0 12 .503Zm0 21a9.5 9.5 0 1 1 9.5-9.5 9.51 9.51 0 0 1-9.5 9.5Z"></path>
+                    </StSvgEmoji>
+
+                    <StTextCount>
+                      <span id="byteInfo">{introduce?.length}</span> / 50
+                    </StTextCount>
+                  </StEmojiRow>
                 </StSecondIntro>
               </StFixed>
             </StContent2>
@@ -228,6 +254,7 @@ const StEditTitle = styled.div`
 const StEditform = styled.form``;
 const StName = styled.input``;
 const StNickname = styled.input``;
+
 const StProfile = styled.div`
   height: 140px;
 
@@ -308,6 +335,14 @@ const StSecond = styled.div`
 `;
 const StSecond2 = styled.div`
   width: 300px;
+  position: relative;
+  top: 20px;
+`;
+const StP = styled.p`
+  font-size: 10px;
+  color: gray;
+  position: relative;
+  top: -10px;
 `;
 
 const StContent2 = styled.div`
@@ -343,6 +378,16 @@ const StTextarea = styled.textarea`
   padding: 0px;
   box-sizing: border-box;
 `;
+const StEmojiRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  margin: 6px;
+  margin-left: 0px;
+`;
+const StSvgEmoji = styled.svg``;
 const StTextCount = styled.div`
   width: 150px;
   color: #d3d3d3;

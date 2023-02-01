@@ -256,7 +256,9 @@ const StName = styled.input``;
 const StNickname = styled.input``;
 
 const StProfile = styled.div`
-  height: 140px;
+  height: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 
   display: flex;
   flex-direction: row;

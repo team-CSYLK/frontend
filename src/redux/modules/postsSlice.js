@@ -23,13 +23,12 @@ export const __getPost = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 export const __editLikeness = createAsyncThunk(
   "EDIT_LIKENESS",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const data = await AxiosInstance.put(`/posts/like/${payload}`);
 
@@ -37,7 +36,21 @@ export const __editLikeness = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
+);
+
+export const __deletePost = createAsyncThunk(
+  "DELETE_POST",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await AxiosInstance.delete(`/posts/${payload}`);
+
+      // return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
 );
 
 export const postsSlice = createSlice({
@@ -52,7 +65,7 @@ export const postsSlice = createSlice({
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.list = action.payload.data;
-      console.log(action.payload.data);
+      // console.log(action.payload.data);
       // list에 어떻게 저장되는지 보기
     },
     [__getPost.rejected]: (state, action) => {
@@ -70,6 +83,18 @@ export const postsSlice = createSlice({
     },
     [__editLikeness.rejected]: (state, action) => {
       state.isLoading = false;
+    },
+    [__deletePost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.list = action.payload.data; // splice를 이용해서 제거해야함
+      console.log("삭제payload", action.payload.data);
+    },
+    [__deletePost.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__deletePost.pending]: (state) => {
+      state.isLoading = true;
     },
   },
 });

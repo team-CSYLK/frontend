@@ -30,10 +30,12 @@ export const __putEditFormData = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      sessionStorage.setItem("nickname", data.data.nickname);
-      // sessionStorage.setItem("myimg", data.data.imageProfile);
 
-      // return thunkAPI.fulfillWithValue(data);
+      if (data.status === 200) {
+        // sessionStorage.setItem("nickname", payload.nickname);
+        // sessionStorage.setItem("myimg", payload.);
+      }
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log("error", error);
       return thunkAPI.rejectWithValue(error);
@@ -52,7 +54,7 @@ const editSlice = createSlice({
     [__getEditFormData.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경
       state.editProfiles = action.payload.data.data;
-      console.log("action.payload", action.payload.data.data);
+      // console.log("action.payload", action.payload.data.data);
     },
     [__getEditFormData.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경
@@ -63,8 +65,8 @@ const editSlice = createSlice({
     },
     [__putEditFormData.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경
-      state.editProfiles = action.payload;
-      console.log("action.payload", action.payload);
+      // state.editProfiles = action.payload;
+      // console.log("action.payload", action.payload);
     },
     [__putEditFormData.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경

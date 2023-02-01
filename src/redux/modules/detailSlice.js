@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const __getDetail = createAsyncThunk(
-  "GET_DETAIl",
+  "GET_DETAIL",
   async (payload, thunkAPI) => {
     // console.log(payload, "postid받아야함");
     try {

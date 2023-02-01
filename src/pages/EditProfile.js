@@ -6,7 +6,6 @@ import {
   __putEditFormData,
 } from "../redux/modules/editSlice";
 import { useDispatch, useSelector } from "react-redux";
-import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
 import ReactModal from "react-modal";
 
 const config = {
@@ -44,10 +43,10 @@ export const fileValidator = (files, config) => {
 const EditProfile = () => {
   // 서버에서 데이터 가져올때
   const { editProfiles } = useSelector((state) => state.editSlice);
-  // 여기서 문제 발생
+  //초기값 설정
   const [name, setName] = useState(editProfiles.name);
 
-  console.log("name", name);
+  // console.log("name", name);
   const onSetName = (e) => {
     setName(e.target.value);
   };
@@ -97,13 +96,6 @@ const EditProfile = () => {
   const dispatch = useDispatch();
   const onEdithandler = (e) => {
     e.preventDefault();
-
-    const newList = {
-      imageProfile,
-      introduce,
-      nickname,
-      name,
-    };
 
     // 이미지데이터, 게시글내용, 위치
     formData.append("imageProfile", fileImg);

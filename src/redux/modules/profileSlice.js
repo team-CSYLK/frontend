@@ -13,7 +13,7 @@ export const __getProfile = createAsyncThunk(
     // console.log(payload, "들어오나?");
     try {
       const data = await axiosInstance.get(`/user/${payload}`);
-      console.log("data", data.data);
+      // console.log("data", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       //   console.log("error", error);

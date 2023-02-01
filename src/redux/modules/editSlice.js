@@ -18,20 +18,27 @@ export const __getEditFormData = createAsyncThunk(
       console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 export const __putEditFormData = createAsyncThunk(
   "editPutProfileFormData",
   async (payload, thunkAPI) => {
+    console.log(payload, " 들어오나?");
     try {
-      const data = await axiosInstance.put("/editProfileImage", payload);
-      console.log("data", data);
-      return thunkAPI.fulfillWithValue(data);
+      const data = await axiosInstance.put("/editProfileImage", payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      sessionStorage.setItem("nickname", data.data.nickname);
+      // sessionStorage.setItem("myimg", data.data.imageProfile);
+
+      // return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 const editSlice = createSlice({

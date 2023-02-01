@@ -5,15 +5,22 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import ReactModal from "react-modal";
 import Detail from "../pages/Detail";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { __deletePost } from "../redux/modules/postsSlice";
 const MainCard = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const myNick = sessionStorage.getItem("nickname");
+
   const onDeleteBtn = (e) => {
     e.preventDefault();
-    dispatch(__deletePost(post.postId));
+    const result = window.confirm("삭제하시겠습니까?");
+    if (result) {
+      dispatch(__deletePost(post.postId));
+    } else {
+      return;
+    }
   };
   //데이터 예시
   const [totalLike, setTotalLike] = useState(post.likes);
@@ -96,23 +103,25 @@ const MainCard = ({ post }) => {
               <span>
                 <CardFooterButton>
                   <div>
-                    <DeleteBtn onClick={onDeleteBtn}>
-                      <Deletesvg
-                        aria-label="삭제"
-                        height="24"
-                        role="img"
-                        width="24"
-                        strokeLinejoin="round"
-                        strokeMiterlimit="2"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="m4.015 5.494h-.253c-.413 0-.747-.335-.747-.747s.334-.747.747-.747h5.253v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-.254v15.435c0 .591-.448 1.071-1 1.071-2.873 0-11.127 0-14 0-.552 0-1-.48-1-1.071zm14.5 0h-13v15.006h13zm-4.25 2.506c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm-4.5 0c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm3.75-4v-.5h-3v.5z"
-                          fillRule="nonzero"
-                        />
-                      </Deletesvg>
-                    </DeleteBtn>
+                    {myNick === post.nickname && (
+                      <DeleteBtn onClick={onDeleteBtn}>
+                        <Deletesvg
+                          aria-label="삭제"
+                          height="24"
+                          role="img"
+                          width="24"
+                          strokeLinejoin="round"
+                          strokeMiterlimit="2"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="m4.015 5.494h-.253c-.413 0-.747-.335-.747-.747s.334-.747.747-.747h5.253v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-.254v15.435c0 .591-.448 1.071-1 1.071-2.873 0-11.127 0-14 0-.552 0-1-.48-1-1.071zm14.5 0h-13v15.006h13zm-4.25 2.506c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm-4.5 0c-.414 0-.75.336-.75.75v8.5c0 .414.336.75.75.75s.75-.336.75-.75v-8.5c0-.414-.336-.75-.75-.75zm3.75-4v-.5h-3v.5z"
+                            fillRule="nonzero"
+                          />
+                        </Deletesvg>
+                      </DeleteBtn>
+                    )}
                   </div>
                 </CardFooterButton>
               </span>
@@ -273,7 +282,7 @@ const CardFooterSvg = styled.svg`
     fill: rgb(142, 142, 142);
   }
 `;
-const DeleteBtn = styled.button`
+const DeleteBtn = styled.div`
   cursor: pointer;
   background-color: transparent;
   border: 0px;

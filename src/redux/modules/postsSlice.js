@@ -19,11 +19,13 @@ export const __getPost = createAsyncThunk(
         // alert("로그인 성공");
         // console.log("기능");
       }
+      // console.log("data.data", data.data);
+      // console.log("위에가 data.data");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const __editLikeness = createAsyncThunk(
@@ -36,7 +38,7 @@ export const __editLikeness = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const __deletePost = createAsyncThunk(
@@ -45,12 +47,15 @@ export const __deletePost = createAsyncThunk(
     console.log(payload);
     try {
       const data = await AxiosInstance.delete(`/posts/${payload}`);
-
-      // return thunkAPI.fulfillWithValue(payload);
+      console.log(data);
+      if (data.status === 200) {
+        alert("게시글이 삭제되었습니다.");
+      }
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 export const postsSlice = createSlice({
@@ -65,6 +70,7 @@ export const postsSlice = createSlice({
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.list = action.payload.data;
+      console.log(action.payload);
       // console.log(action.payload.data);
       // list에 어떻게 저장되는지 보기
     },
@@ -86,8 +92,14 @@ export const postsSlice = createSlice({
     },
     [__deletePost.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.list = action.payload.data; // splice를 이용해서 제거해야함
-      console.log("삭제payload", action.payload.data);
+      // console.log(state.list);
+      const target = state.list.findIndex(
+        (post) => post.postId === action.payload
+      );
+      // console.log("지고 싶은 대상의 인덱스값", target);
+
+      state.list.splice(target, 1);
+      // console.log("지워졌을때", state.list);
     },
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false;

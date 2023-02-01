@@ -10,7 +10,7 @@ const Category = () => {
   // 로그인 페이지에서만 카테고리 보이지 않기
   const locationNow = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  console.log(modalIsOpen);
+  // console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
   // url 은 일반적으로 소문자로 인식되는데, relocation의 경우 대문자로 보낼 수 있음.
   if (locationNow.pathname === "/SignNick") return null;
@@ -223,6 +223,7 @@ const Category = () => {
             borderRadius: "20px",
             padding: "10px",
             display: "flex",
+            // backgroundColor: "rgba(100, 100, 100, 0.45)",
           },
         }}
         isOpen={modalIsOpen}

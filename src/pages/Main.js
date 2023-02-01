@@ -9,6 +9,7 @@ const Main = () => {
   // // 서버에서 받아오는것
   const { list } = useSelector((state) => state.post);
   const lists = list;
+
   // console.log(lists, "main에서 내려주는 좋아요 상태");
   // 임시 데이터
   // const lists = [

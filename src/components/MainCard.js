@@ -3,18 +3,21 @@ import styled from "styled-components";
 import Like from "./Like";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import ReactModal from "react-modal";
+import Detail from "../pages/Detail";
 const MainCard = ({ post }) => {
   const navigate = useNavigate();
-  // console.log(post);
   //데이터 예시
   const [totalLike, setTotalLike] = useState(post.likes);
-  console.log(post);
-  console.log(post.imageUrl);
+  //프로필 이동 버튼
   const moveToProfile = () => {
     navigate(`/Main/${post.nickname}`);
   };
   // console.log(post.isLiked, post.postId);
   // {postId: 2, userId: 1, nickname: '김동동', imageProfile: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/users-image/1675151031209.jpg', imageUrl: 'https://insanegram.s3.ap-northeast-2.amazonaws.com/posts-image/1675151844196.png', …}
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <>
       <MainArticle>
@@ -63,6 +66,7 @@ const MainCard = ({ post }) => {
                 <CardFooterButton>
                   <div>
                     <CardFooterSvg
+                      onClick={() => setModalIsOpen(true)}
                       aria-label="댓글 달기"
                       height="24"
                       role="img"
@@ -86,6 +90,40 @@ const MainCard = ({ post }) => {
           </MainArticleFooter>
         </MainArticleDiv>
       </MainArticle>
+      <ReactModal
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(100, 100, 100, 0.45)",
+            zIndex: 10,
+          },
+          content: {
+            position: "fixed",
+            // marginLeft: "auto",
+            // marginRight: "auto",
+            // marginTop: "250px",
+            margin: "auto",
+            border: "0px",
+            width: "1000px",
+            height: "820px",
+            borderRadius: "4px",
+            padding: "0px",
+            display: "flex",
+            // backgroundColor: "transparent",
+
+            // marginLeft: "100px",
+          },
+        }}
+        isOpen={modalIsOpen}
+        ariaHideApp={false}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <Detail postId={post.postId} />
+      </ReactModal>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../api/axiosInstance";
+import AxiosInstance from "../../api/AxiosInstance";
 const initialState = {
   loginList: [],
   isLogin: false,
@@ -23,20 +23,30 @@ export const __postLogin = createAsyncThunk(
           //   sessionStorage.setItem("refreshToken", res.data.refreshToken);
           return res;
         });
+
       if (data.status === 200) {
-        // alert("로그인 성공");
-        console.log(data);
-        console.log(data.data);
+        // console.log(data.data);
         // console.log(data.data.nickname);
-        if (data.data === "") {
+        // console.log(data.data.imageUrl);
+
+        // alert("로그인 성공");
+        // console.log(data);
+        // console.log(data.data);
+        // console.log(data.data.nickname);
+        if (data.data.nickname === "") {
+          // 닉네임을 입력 못 받았다면 닉네임 입력페이지
           window.location.href = "/SignNick";
         } else {
-          sessionStorage.setItem("nickname", data.data);
+          sessionStorage.setItem("nickname", data.data.nickname);
+          sessionStorage.setItem("myimg", data.data.imageUrl);
           window.location.href = "/Main";
         }
       }
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      console.log(error);
+
       // if (error.response.status === 409) {
       //   alert("아이디와 패스워드를 확인해주세요");
       // }
@@ -50,11 +60,11 @@ export const __addNick = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload, " 썽크로 들어오나?");
     try {
-      const data = await axiosInstance
-        .post("/sendNickname", payload)
-        .then((res) => {
+      const data = await AxiosInstance.post("/sendNickname", payload).then(
+        (res) => {
           return res;
-        });
+        }
+      );
       if (data.status === 200) {
         sessionStorage.setItem("nickname", payload.nickname);
         window.location.href = "/Main";

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __postLogin } from "../../redux/modules/loginSlice";
 const KakaoLogin = () => {
-  // 방법1
+  // 방법1 패치 이용해서 서버에서 토큰 받기
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const KakaoLogin = () => {
   // console.log(REST_API_KEY);
   // console.log(REDIRECT_URI);
 
-  //방법 2
+  //방법 2 방법3 토큰을 카카오에서 받기
   // useEffect(() => {
   //   let params = new URL(document.location.toString()).searchParams;
   //   let code = params.get("code"); // 인가코드 받는 부분
@@ -52,7 +52,7 @@ const KakaoLogin = () => {
   //     });
   // }, []);
 
-  // // 방법3
+  // // 방법3 토큰을 카카오에서 직접 받을 때, 데이터 형식 변경
 
   // useEffect(() => {
   //   const authorizeCodeFromKakao = window.location.search.split("=")[1];
@@ -86,7 +86,7 @@ const KakaoLogin = () => {
   //   }
   // }, []);
 
-  //q방법4
+  //q방법4  토큰을 서버가 카카오에서 직접 받기 axios
   // useEffect(() => {
   //   let params = new URL(document.location.toString()).searchParams;
   //   let code = params.get("code"); // 인가코드 받는 부분
@@ -107,18 +107,13 @@ const KakaoLogin = () => {
   //     });
   // }, []);
 
-  // 방법 5
+  // 방법 인가코드만 받아서 보내기
   useEffect(() => {
     console.log(KAKAO_CODE);
     dispatch(__postLogin({ code: KAKAO_CODE }));
   }, [dispatch]);
 
-  return (
-    <div>
-      kakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLoginkakaoLogin
-      {/* <button onClick={getKakaoToken}>버튼</button> */}
-    </div>
-  );
+  return <div>kakaoLogin에 실패하면 뜨는 페이지</div>;
 };
 
 export default KakaoLogin;

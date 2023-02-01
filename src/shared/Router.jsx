@@ -5,8 +5,8 @@ import Login from "../pages/Login";
 import Main from "../pages/Main";
 import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
-import Category from "./Category";
 import Layout from "./Layout";
+import Category from "./Category";
 import KakaoLogin from "../pages/socialLogin/KakaoLogin";
 import SingNick from "../pages/SingNick";
 const Router = () => {
@@ -21,7 +21,7 @@ const Router = () => {
           <Route path="/SignNick" element={<SingNick />} />
           <Route path="/KaKaoLogin" element={<KakaoLogin />} />
           <Route path="/Main" element={<Main />} />
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Main/:nickName" element={<Profile />} />
           {/* todo  :  propfile 주소 바껴야함 */}
           <Route path="/Edit" element={<EditProfile />} />
         </Routes>

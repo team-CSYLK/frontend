@@ -5,17 +5,27 @@ import Logo from "../components/Logo";
 import ReactModal from "react-modal";
 import { useState } from "react";
 import AddPost from "../pages/components/AddPost";
+import AddPost2 from "../pages/components/AddPost2";
 const Category = () => {
   // 로그인 페이지에서만 카테고리 보이지 않기
   const locationNow = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  console.log(modalIsOpen);
+  // console.log(modalIsOpen);
   if (locationNow.pathname === "/") return null;
   // url 은 일반적으로 소문자로 인식되는데, relocation의 경우 대문자로 보낼 수 있음.
   if (locationNow.pathname === "/SignNick") return null;
   if (locationNow.pathname === "/signnick") return null;
   if (locationNow.pathname === "/kakaologin") return null;
-
+  const logOut = () => {
+    sessionStorage.clear();
+    // dispatch(checkLogout());
+    window.location.href = "/";
+  };
+  // 세션에 저장된 닉네임과 내 프로필 이미지 가져오기
+  const nickName = sessionStorage.getItem("nickname");
+  // console.log(nickName);
+  const myImg = sessionStorage.getItem("myimg");
+  // console.log(myImg);
   return (
     <>
       <CategoryWrapper>
@@ -114,7 +124,7 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Main" role="link" tabindex="0">
+              <CategoryEachLink role="link" tabindex="0">
                 {/*TODO: 여기다 메시지 주소 달아야 함  */}
                 <CategoryInLink>
                   <div>
@@ -161,15 +171,19 @@ const Category = () => {
           </CategoryBox>
           <CategoryBox>
             <CategoryEachBox>
-              <CategoryEachLink href="/Profile" role="link" tabindex="0">
+              <CategoryEachLink
+                href={`/Main/${nickName}`}
+                role="link"
+                tabindex="0"
+              >
                 {/*TODO: 여기다 href 주소 수정.. 닉네임을 로컬로 받아야함 */}
                 <CategoryInLink>
                   <div>
                     <CategoryInDiv>
                       <CategoryDbInDiv>
-                        <CategorySvg>
-                          {/* <span class="xnz67gz x14yjl9h xudhj91 x18nykt9 xww2gxu x9f619 x1lliihq x2lah0s x6ikm8r x10wlt62 x1n2onr6 x1ykvv32 xougopr x159fomc xnp5s1o x194ut8o x1vzenxt xd7ygy7 xt298gk x1xrz1ek x1s928wv x162n7g1 x2q1x1w x1j6awrg x1n449xj x1m1drc7" role="link" tabindex="-1" style="width: 24px; height: 24px;"><img alt="duroomee님의 프로필 사진" class="x6umtig x1b1mbwd xaqea5y xav7gou xk390pu x5yr21d xpdipgo xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x11njtxf xh8yej3" crossorigin="anonymous" draggable="false" src="https://instagram.ftpa1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.ftpa1-1.fna.fbcdn.net&amp;_nc_cat=1&amp;_nc_ohc=Wss0mqAzjA4AX9oEzty&amp;edm=AB11_MABAAAA&amp;ccb=7-5&amp;ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2-ccb7-5&amp;oh=00_AfDEtq5sVG0nH143f_oRqy5SELaNvc4vESNEXWd2OyCPSw&amp;oe=63D5D68F&amp;_nc_sid=ccd4cc"></span> */}
-                        </CategorySvg>
+                        <MyProfileImgSize>
+                          <MyProfileImg src={`${myImg}`} />
+                        </MyProfileImgSize>
                       </CategoryDbInDiv>
                     </CategoryInDiv>
                   </div>
@@ -183,9 +197,20 @@ const Category = () => {
             </CategoryEachBox>
           </CategoryBox>
         </CategoryOutBox>
+        <LogOutButton onClick={logOut}> 로그아웃</LogOutButton>
       </CategoryWrapper>
+
       <ReactModal
         style={{
+          // overlay: {
+          //   position: "fixed",
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   bottom: 0,
+          //   backgroundColor: "rgba(100, 100, 100, 0.45)",
+          //   zIndex: 10,
+          // },
           content: {
             position: "fixed",
             // marginLeft: "auto",
@@ -193,11 +218,12 @@ const Category = () => {
             // marginTop: "250px",
             margin: "auto",
             border: "0px",
-            width: "585px",
+            width: "800px",
             height: "620px",
             borderRadius: "20px",
             padding: "10px",
             display: "flex",
+            // backgroundColor: "rgba(100, 100, 100, 0.45)",
           },
         }}
         isOpen={modalIsOpen}
@@ -205,7 +231,7 @@ const Category = () => {
         onRequestClose={() => setModalIsOpen(false)}
       >
         {/* TODO: 여기다가 add넣어주세요 */}
-        <AddPost></AddPost>
+        <AddPost />
       </ReactModal>
     </>
   );
@@ -356,4 +382,45 @@ const CategoryEachWord = styled.div`
 const CategorySvg = styled.svg`
   display: block;
   position: relative;
+`;
+
+const LogOutButton = styled.button`
+  margin-left: 60px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(38, 38, 38);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  @media screen and (max-width: 900px) {
+    font-size: 10px;
+    margin-left: 9px;
+  }
+`;
+
+const MyProfileImgSize = styled.div`
+  margin-right: auto;
+  margin-left: auto;
+  border: 0;
+  box-sizing: border-box;
+  /* height: 100%; */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  height: 24px;
+  border-radius: 50%;
+  /* width: 150px; */
+`;
+
+const MyProfileImg = styled.img`
+  /* height: 150px; */
+  height: 100%;
+  object-fit: contain;
 `;
